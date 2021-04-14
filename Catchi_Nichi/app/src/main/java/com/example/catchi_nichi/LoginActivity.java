@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,6 +74,24 @@ public class LoginActivity extends AppCompatActivity {
         if(Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
             super.onActivityResult(requestCode, resultCode, data);
             return;
+        }
+    }
+
+    public void onClick(View view) {
+        switch(view.getId()){
+
+            case R.id.join_btn:
+                Intent join = new Intent(getApplicationContext(), JoinActivity.class);
+                startActivity(join);
+                finish();
+                break;
+
+            case R.id.login_btn:
+                // 로그인 정보 서버로 보내기
+                Intent login = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(login);
+                finish();
+                break;
         }
     }
 

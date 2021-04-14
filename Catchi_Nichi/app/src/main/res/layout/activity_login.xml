@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +14,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.786" />
+        app:layout_constraintVertical_bias="0.802"
+        />
 
     <ImageView
         android:layout_width="151dp"
@@ -51,30 +53,6 @@
         app:layout_constraintVertical_bias="0.612"
         tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/login_frame"
-        android:layout_width="282dp"
-        android:layout_height="243dp"
-        android:src="@drawable/login"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.731"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:layout_width="99dp"
-        android:layout_height="55dp"
-        android:src="@drawable/join"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72"
-        tools:ignore="MissingConstraints" />
-
     <EditText
         android:id="@+id/emailText"
         android:layout_width="202dp"
@@ -83,7 +61,7 @@
         android:hint=" "
         android:scrollbars="horizontal"
         android:selectAllOnFocus="false"
-        android:singleLine="false"
+        android:singleLine="true"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.622"
@@ -102,7 +80,7 @@
         android:inputType="textPassword"
         android:scrollbars="horizontal"
         android:selectAllOnFocus="false"
-        android:singleLine="false"
+        android:singleLine="true"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.658"
@@ -112,27 +90,36 @@
         app:layout_constraintVertical_bias="0.575"
         tools:ignore="MissingConstraints" />
 
-    <Button
-        android:id="@+id/join_btn"
-        android:layout_width="111dp"
-        android:layout_height="26dp"
-        app:backgroundTint="@color/tumyeongsaeg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.713" />
 
-    <Button
+    <ImageButton
         android:id="@+id/login_btn"
-        android:layout_width="277dp"
-        android:layout_height="47dp"
-        app:backgroundTint="@color/tumyeongsaeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/tumyeongsaeg"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.657"
+        app:srcCompat="@drawable/login"
+        android:onClick="onClick"
+        tools:ignore="MissingConstraints" />
+
+    <ImageButton
+        android:id="@+id/join_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/tumyeongsaeg"
+        android:onClick="onClick"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.661"
+        app:layout_constraintVertical_bias="0.706"
+        app:srcCompat="@drawable/join"
         tools:ignore="MissingConstraints" />
 
 

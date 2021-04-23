@@ -1,63 +1,38 @@
 package com.example.catchi_nichi;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.Pair;
 
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
-import com.kakao.network.NetworkTask;
 import com.kakao.usermgmt.ApiErrorCode;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
-import cz.msebera.android.httpclient.HttpEntity;
-import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.NameValuePair;
-import cz.msebera.android.httpclient.client.ClientProtocolException;
-import cz.msebera.android.httpclient.client.HttpClient;
-import cz.msebera.android.httpclient.client.entity.UrlEncodedFormEntity;
-import cz.msebera.android.httpclient.client.methods.HttpPost;
-import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
-import cz.msebera.android.httpclient.impl.client.HttpClientBuilder;
-import cz.msebera.android.httpclient.message.BasicNameValuePair;
-import cz.msebera.android.httpclient.util.EntityUtils;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
-    private String myResult;
 
     private SessionCallback sessionCallback;
+    Retrofit retrofit;
+    RetrofitAPI apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,13 +99,38 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onSuccess(MeV2Response result) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("name", result.getNickname());
-                    intent.putExtra("profile", result.getProfileImagePath());
-                    startActivity(intent);
+                    if(getInfo(result)){
+                        //Retrofit
+                        retrofit = new Retrofit.Builder()
+                                .baseUrl(RetrofitAPI.API_URL)
+                                .addConverterFactory(GsonConverterFactory.create())
+                                .build();
+                        apiService = retrofit.create(RetrofitAPI.class);
 
-                    getInfo(result);
-                    finish();
+                        Call<Post> Info = apiService.userInfoAPI(userInfo);
+                        Info.enqueue(new Callback<Post>() {
+                            @Override
+                            public void onResponse(Call<Post> call, Response<Post> response) {
+                                if (response.isSuccessful() || response.body().getSuccess() == true){
+                                    Log.i("response","success");
+                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                    //intent.putExtra("name", result.getNickname());
+                                    //intent.putExtra("profile", result.getProfileImagePath());
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Post> call, Throwable t) {
+                                Log.i("response","failure");
+                            }
+                        });
+
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "가입하지 않은 아이디이거나 비밀번호가 일치하지 않습니다. ", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
@@ -141,60 +141,38 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void getInfo(MeV2Response result){
-        //Log.d("Info", String.valueOf(result));
+    HashMap<String, Object> userInfo = new HashMap<>();
+    private boolean getInfo(MeV2Response result) {
         PackageInfo packageInfo = null;
+
         try {
             packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
+
+            if (packageInfo == null) {
+                Log.e("Info", "Info:null");
+                return false;
+            }
+
+            for (Signature signature : packageInfo.signatures) {
+
+                String snsId = String.valueOf(result.getId());
+                String email = String.valueOf(result.getKakaoAccount().getEmail());
+                String[] low = result.getKakaoAccount().getAgeRange().getValue().split("~");
+                int age = (Integer.parseInt(low[0]) + Integer.parseInt(low[1])) / 2;
+                String gender = String.valueOf(result.getKakaoAccount().getGender());
+
+                userInfo.put("snsId", snsId);
+                userInfo.put("email", email);
+                userInfo.put("age", age);
+                userInfo.put("gender", gender);
+            }
+            return true;
+
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
-        }
-        if (packageInfo == null)
-            Log.e("Info", "Info:null");
-
-        for (Signature signature : packageInfo.signatures) {
-            String snsId = String.valueOf(result.getId());
-            String email =  String.valueOf(result.getKakaoAccount().getEmail());
-            String[] low =result.getKakaoAccount().getAgeRange().getValue().split("~");
-            int age = (Integer.parseInt(low[0])+Integer.parseInt(low[1]))/2;
-            String gender = String.valueOf(result.getKakaoAccount().getGender());
-
-            Log.d("snsId", snsId);
-            Log.d("email", email);
-            Log.d("age", String.valueOf(age));
-            Log.d("gender", gender);
-            String url =  "http://10.0.2.2:8001/user/kakao";
-
-
-            ContentValues values = new ContentValues();
-            values.put("snsId", snsId);
-            values.put("email", email);
-            values.put("age", age);
-            values.put("gender", gender);
-
-            NetworkTask networkTask = new NetworkTask(url, values);
-            networkTask.execute();
-
+            return false;
         }
     }
-
-    public class NetworkTask extends AsyncTask<Void, Void, String> {
-
-        String url;
-        ContentValues values;
-
-        NetworkTask(String url, ContentValues values){
-            this.url = url;
-            this.values = values;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-            String result;
-            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            result = requestHttpURLConnection.request(url, values);
-            return result; // 결과가 여기에 담깁니다. 아래 onPostExecute()의 파라미터로 전달됩니다.
-        }
     }
 
-}
+

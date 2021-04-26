@@ -7,6 +7,7 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,8 +32,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends AppCompatActivity {
 
     private SessionCallback sessionCallback;
-    Retrofit retrofit;
-    RetrofitAPI apiService;
+
+    //Retrofit
+    public static final Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(RetrofitAPI.API_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+    public static final RetrofitAPI apiService = retrofit.create(RetrofitAPI.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
+
+        EditText email = findViewById(R.id.emailText);
+        EditText pwd = findViewById(R.id.pwdText);
+
         switch(view.getId()){
 
             case R.id.join_btn:
@@ -62,10 +72,36 @@ public class LoginActivity extends AppCompatActivity {
                 break;
 
             case R.id.login_btn:
-                // 로그인 정보 서버로 보내기
-                Intent login = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(login);
-                finish();
+
+                HashMap <String, Object> loginInfo = new HashMap<>();
+                loginInfo.put("email",email.getText().toString());
+                loginInfo.put("password",pwd.getText().toString());
+                Call<Post> Login = apiService.LoginAPI(loginInfo);
+
+                Login.enqueue(new Callback<Post>() {
+                                  @Override
+                                  public void onResponse(Call<Post> call, Response<Post> response) {
+                                      try {
+                                          Log.i("Login",response.toString());
+                                      if(response.body().getSuccess()){
+                                          Log.i("Login","success");
+                                          Intent login = new Intent(getApplicationContext(), MainActivity.class);
+                                          startActivity(login);
+                                          finish();
+                                      }
+                                      else{
+                                          Log.i("Login","fail");
+                                          Toast.makeText(getApplicationContext(), "가입하지 않은 아이디이거나 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                                      }}catch(Exception e){
+                                          Log.i("Login","fail");
+                                          Toast.makeText(getApplicationContext(), "가입하지 않은 아이디이거나 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                                          e.printStackTrace();
+                                      }
+                                  }
+
+                                  @Override
+                                  public void onFailure(Call<Post> call, Throwable t) {}
+                              });
                 break;
         }
     }
@@ -100,18 +136,12 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(MeV2Response result) {
                     if(getInfo(result)){
-                        //Retrofit
-                        retrofit = new Retrofit.Builder()
-                                .baseUrl(RetrofitAPI.API_URL)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-                        apiService = retrofit.create(RetrofitAPI.class);
 
                         Call<Post> Info = apiService.userInfoAPI(userInfo);
                         Info.enqueue(new Callback<Post>() {
                             @Override
                             public void onResponse(Call<Post> call, Response<Post> response) {
-                                if (response.isSuccessful() || response.body().getSuccess() == true){
+                                if (response.isSuccessful() && response.body().getSuccess() == true){
                                     Log.i("response","success");
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     //intent.putExtra("name", result.getNickname());

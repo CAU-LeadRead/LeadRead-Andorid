@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    String snsId, email;
+    //String snsId, email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +18,8 @@ public class MainActivity extends Activity {
 
 
         Intent intent = getIntent();
-        snsId = intent.getStringExtra("snsId");
-        email = intent.getStringExtra("email");
+        //snsId = intent.getStringExtra("snsId");
+        //email = intent.getStringExtra("email");
 
     }
 }

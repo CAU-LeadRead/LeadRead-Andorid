@@ -2,10 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.catchi_nichi">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET" />
 
 
     <application
+
         android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,6 +28,9 @@
         </activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".JoinActivity"></activity>
+        <activity android:name=".NicknameActivity"></activity>
+        <activity android:name=".mainSearchActivity" android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".searchResultActivity" android:windowSoftInputMode="adjustPan" ></activity>
 
     </application>
 

@@ -58,9 +58,10 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    EditText email;
     public void onClick(View view) {
 
-        EditText email = findViewById(R.id.emailText);
+        email = findViewById(R.id.emailText);
         EditText pwd = findViewById(R.id.pwdText);
 
         switch(view.getId()){
@@ -82,10 +83,12 @@ public class LoginActivity extends AppCompatActivity {
                                   @Override
                                   public void onResponse(Call<Post> call, Response<Post> response) {
                                       try {
+                                          //Log.i("Login",response.body().toString());
                                           Log.i("Login",response.toString());
                                       if(response.body().getSuccess()){
                                           Log.i("Login","success");
                                           Intent login = new Intent(getApplicationContext(), MainActivity.class);
+                                          login.putExtra("nick",response.body().getNick());
                                           startActivity(login);
                                           finish();
                                       }
@@ -135,6 +138,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onSuccess(MeV2Response result) {
+
                     if(getInfo(result)){
 
                         Call<Post> Info = apiService.userInfoAPI(userInfo);
@@ -143,9 +147,8 @@ public class LoginActivity extends AppCompatActivity {
                             public void onResponse(Call<Post> call, Response<Post> response) {
                                 if (response.isSuccessful() && response.body().getSuccess() == true){
                                     Log.i("response","success");
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    //intent.putExtra("name", result.getNickname());
-                                    //intent.putExtra("profile", result.getProfileImagePath());
+                                    Intent intent = new Intent(getApplicationContext(), NicknameActivity.class);
+                                    intent.putExtra("email", email.getText().toString());
                                     startActivity(intent);
                                     finish();
                                 }

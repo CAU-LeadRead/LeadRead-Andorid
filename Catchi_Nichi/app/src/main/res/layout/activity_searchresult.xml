@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:windowSoftInputMode="adjustPan"
+    tools:context=".searchResultActivity">
+
+    <ScrollView
+        android:id="@+id/InfoView"
+        android:layout_width="380dp"
+        android:layout_height="410dp"
+        android:layout_margin="13dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@color/darkgray"
+        android:scrollbarSize="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6">
+
+        <LinearLayout
+            android:id="@+id/Info"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="10">
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_weight="5"
+        android:padding="0sp"
+        android:scaleType="fitXY"
+        android:src="@drawable/box3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:gravity="center"/>
+
+    <ImageButton
+        android:id="@+id/searchButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@color/tumyeongsaeg"
+        android:padding="0sp"
+        android:scaleType="fitCenter"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.027"
+        android:src="@drawable/searchicon2" />
+
+    <EditText
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:id="@+id/searchText"
+        android:layout_width="280dp"
+        android:layout_height="38dp"
+        android:background="@null"
+        android:hint=""
+        android:scrollbars="horizontal"
+        android:selectAllOnFocus="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.259"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025" />
+
+
+
+    <ImageView
+        android:id="@+id/bar"
+        android:layout_width="417dp"
+        android:layout_height="90dp"
+        android:padding="0sp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0095" />
+
+    <ImageButton
+        android:id="@+id/home_btn"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="5dp"
+        android:background="@color/tumyeongsaeg"
+        android:padding="0sp"
+        android:scaleType="fitCenter"
+        android:onClick="onClick"
+        android:src="@drawable/home_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.04"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.988" />
+
+    <ImageButton
+        android:id="@+id/recommend_btn"
+        android:layout_width="52dp"
+        android:layout_height="54dp"
+        android:layout_marginLeft="5dp"
+        android:background="@color/tumyeongsaeg"
+        android:padding="0sp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/recommend_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.250"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.988" />
+
+    <ImageButton
+        android:id="@+id/smellnote_btn"
+        android:layout_width="50dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="5dp"
+        android:background="@color/tumyeongsaeg"
+        android:padding="0sp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/smellnote_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.988" />
+
+    <ImageButton
+        android:id="@+id/camera_search"
+        android:layout_width="46dp"
+        android:layout_height="59dp"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="1"
+        android:background="@color/tumyeongsaeg"
+        android:padding="0sp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/camera_search_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.708"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9901" />
+
+    <ImageButton
+        android:id="@+id/mypage_btn"
+        android:layout_width="63dp"
+        android:layout_height="76dp"
+        android:layout_marginLeft="5dp"
+        android:background="@color/tumyeongsaeg"
+        android:padding="0sp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/mypage_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.959"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/resultView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.141" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

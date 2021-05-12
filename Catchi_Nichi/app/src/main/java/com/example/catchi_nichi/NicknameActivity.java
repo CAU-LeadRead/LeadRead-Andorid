@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.HashMap;
 
@@ -16,7 +20,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NicknameActivity extends Activity {
+public class NicknameActivity extends AppCompatActivity {
 
     //Retrofit
     public static final Retrofit retrofit = new Retrofit.Builder()
@@ -33,6 +37,10 @@ public class NicknameActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nickname);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
+
         Intent intent = getIntent();
         email = intent.getStringExtra("email");
         phone = intent.getStringExtra("phone");

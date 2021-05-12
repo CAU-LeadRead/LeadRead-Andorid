@@ -71,8 +71,7 @@ public class reviewTab extends Fragment {
         TextView text10 = view.findViewById(R.id.text10);
 
 
-
-        Call<Post> recommend = apiService.searchAPI("","countingReview",10,0);
+        Call<Post> recommend = apiService.searchAPI("","countingReview",10,0,1);
         recommend.enqueue(new Callback<Post>() {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
@@ -216,16 +215,16 @@ public class reviewTab extends Fragment {
                     btn9.setImageBitmap(bitmap9);
                     btn10.setImageBitmap(bitmap10);
 
-                    text1.setText("\n"+"1위: " + reviewList.get(0).get("kr_name") + "\n" + reviewList.get(0).get("brand") + "\n" + "Likes : " + reviewList.get(0).get("likes")+ "\n" + "countingReview : " + reviewList.get(0).get("countingReview")+  "\n" +"avgStars : " + reviewList.get(0).get("avgStars")+ "\n"+ "\n"+ "\n"+ "\n");
-                    text2.setText("\n"+"2위: " + reviewList.get(1).get("kr_name") + "\n" + reviewList.get(1).get("brand") + "\n" + "Likes : " + reviewList.get(1).get("likes")+ "\n" + "countingReview : " + reviewList.get(1).get("countingReview")+  "\n" +"avgStars : " + reviewList.get(1).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
-                    text3.setText("\n"+"3위: " + reviewList.get(2).get("kr_name") + "\n" + reviewList.get(2).get("brand") + "\n" + "Likes : " + reviewList.get(2).get("likes")+ "\n" + "countingReview : " + reviewList.get(2).get("countingReview")+  "\n" +"avgStars : " + reviewList.get(2).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
-                    text4.setText("\n"+"4위: " + reviewList.get(3).get("kr_name") + "\n" + reviewList.get(3).get("brand") + "\n" + "Likes : " + reviewList.get(3).get("likes")+ "\n" + "countingReview : " + reviewList.get(3).get("countingReview")+  "\n" +"avgStars : " + reviewList.get(3).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
-                    text5.setText("\n"+"5위: " + reviewList.get(4).get("kr_name") + "\n" + reviewList.get(4).get("brand") + "\n" + "Likes : " + reviewList.get(4).get("likes")+ "\n" + "countingReview : " + reviewList.get(4).get("countingReview")+  "\n" +"avgStars : " + reviewList.get(4).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
-                    text6.setText("\n"+"6위: " + reviewList.get(5).get("kr_name") + "\n" + reviewList.get(5).get("brand") + "\n" + "Likes : " + reviewList.get(5).get("likes")+ "\n" + "countingReview : " + reviewList.get(5).get("countingReview")+  "\n" +"avgStars : " + reviewList.get(5).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
-                    text7.setText("\n"+"7위: " + reviewList.get(6).get("kr_name") + "\n" + reviewList.get(6).get("brand") + "\n" + "Likes : " + reviewList.get(6).get("likes")+ "\n" + "countingReview : " + reviewList.get(6).get("countingReview")+  "\n" +"avgStars : " + reviewList.get(6).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
-                    text8.setText("\n"+"8위: " + reviewList.get(7).get("kr_name") + "\n" + reviewList.get(7).get("brand") + "\n" + "Likes : " + reviewList.get(7).get("likes")+ "\n" + "countingReview : " + reviewList.get(7).get("countingReview")+  "\n" +"avgStars : " + reviewList.get(7).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
-                    text9.setText("\n"+"9위: " + reviewList.get(8).get("kr_name") + "\n" + reviewList.get(8).get("brand") + "\n" + "Likes : " + reviewList.get(8).get("likes")+ "\n" + "countingReview : " + reviewList.get(8).get("countingReview")+  "\n" +"avgStars : " + reviewList.get(8).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
-                    text10.setText("\n"+"10위: " + reviewList.get(9).get("kr_name") + "\n" + reviewList.get(9).get("brand") + "\n" + "Likes : " + reviewList.get(9).get("likes")+ "\n" + "countingReview : " + reviewList.get(9).get("countingReview")+  "\n" +"avgStars : " + reviewList.get(9).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
+                    text1.setText("\n"+"1위: " + reviewList.get(0).get("kr_name") + "\n" + reviewList.get(0).get("brand") + "\n" + "Likes : " + reviewList.get(0).get("likes")+ "\n" + "리뷰수 : " + reviewList.get(0).get("countingReview")+  "\n" +"평균별점 : " + reviewList.get(0).get("avgStars")+ "\n"+ "\n"+ "\n"+ "\n");
+                    text2.setText("\n"+"2위: " + reviewList.get(1).get("kr_name") + "\n" + reviewList.get(1).get("brand") + "\n" + "Likes : " + reviewList.get(1).get("likes")+ "\n" + "리뷰수 : " + reviewList.get(1).get("countingReview")+  "\n" +"평균별점 : " + reviewList.get(1).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
+                    text3.setText("\n"+"3위: " + reviewList.get(2).get("kr_name") + "\n" + reviewList.get(2).get("brand") + "\n" + "Likes : " + reviewList.get(2).get("likes")+ "\n" + "리뷰수 : " + reviewList.get(2).get("countingReview")+  "\n" +"평균별점 : " + reviewList.get(2).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
+                    text4.setText("\n"+"4위: " + reviewList.get(3).get("kr_name") + "\n" + reviewList.get(3).get("brand") + "\n" + "Likes : " + reviewList.get(3).get("likes")+ "\n" + "리뷰수 : " + reviewList.get(3).get("countingReview")+  "\n" +"평균별점 : " + reviewList.get(3).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
+                    text5.setText("\n"+"5위: " + reviewList.get(4).get("kr_name") + "\n" + reviewList.get(4).get("brand") + "\n" + "Likes : " + reviewList.get(4).get("likes")+ "\n" + "리뷰수 : " + reviewList.get(4).get("countingReview")+  "\n" +"평균별점 : " + reviewList.get(4).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
+                    text6.setText("\n"+"6위: " + reviewList.get(5).get("kr_name") + "\n" + reviewList.get(5).get("brand") + "\n" + "Likes : " + reviewList.get(5).get("likes")+ "\n" + "리뷰수 : " + reviewList.get(5).get("countingReview")+  "\n" +"평균별점 : " + reviewList.get(5).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
+                    text7.setText("\n"+"7위: " + reviewList.get(6).get("kr_name") + "\n" + reviewList.get(6).get("brand") + "\n" + "Likes : " + reviewList.get(6).get("likes")+ "\n" + "리뷰수 : " + reviewList.get(6).get("countingReview")+  "\n" +"평균별점 : " + reviewList.get(6).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
+                    text8.setText("\n"+"8위: " + reviewList.get(7).get("kr_name") + "\n" + reviewList.get(7).get("brand") + "\n" + "Likes : " + reviewList.get(7).get("likes")+ "\n" + "리뷰수 : " + reviewList.get(7).get("countingReview")+  "\n" +"평균별점 : " + reviewList.get(7).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
+                    text9.setText("\n"+"9위: " + reviewList.get(8).get("kr_name") + "\n" + reviewList.get(8).get("brand") + "\n" + "Likes : " + reviewList.get(8).get("likes")+ "\n" + "리뷰수 : " + reviewList.get(8).get("countingReview")+  "\n" +"평균별점 : " + reviewList.get(8).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
+                    text10.setText("\n"+"10위: " + reviewList.get(9).get("kr_name") + "\n" + reviewList.get(9).get("brand") + "\n" + "Likes : " + reviewList.get(9).get("likes")+ "\n" + "리뷰수 : " + reviewList.get(9).get("countingReview")+  "\n" +"평균별점 : " + reviewList.get(9).get("avgStars")+"\n"+ "\n"+ "\n"+ "\n");
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();

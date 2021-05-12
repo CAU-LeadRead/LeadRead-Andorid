@@ -1,5 +1,6 @@
 package com.example.catchi_nichi;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -7,10 +8,14 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -40,14 +45,31 @@ public class LoginActivity extends AppCompatActivity {
             .build();
     public static final RetrofitAPI apiService = retrofit.create(RetrofitAPI.class);
 
+    EditText email;
+    EditText pwd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         sessionCallback = new SessionCallback();
         Session.getCurrentSession().addCallback(sessionCallback);
-        //Session.getCurrentSession().checkAndImplicitOpen();
+
+
+        //키보드 숨기기
+        email = findViewById(R.id.emailText);
+        pwd = findViewById(R.id.pwdText);
+
+        ConstraintLayout layout = findViewById(R.id.layout);
+        layout.setOnClickListener(v -> {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(email.getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(pwd.getWindowToken(), 0);
+        });
+
     }
 
     @Override
@@ -58,11 +80,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    EditText email;
     public void onClick(View view) {
 
-        email = findViewById(R.id.emailText);
-        EditText pwd = findViewById(R.id.pwdText);
 
         switch(view.getId()){
 
@@ -170,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
 
         @Override
         public void onSessionOpenFailed(KakaoException e) {
-            Toast.makeText(getApplicationContext(), "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: "+e.toString(), Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getApplicationContext(), "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: "+e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 

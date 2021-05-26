@@ -57,6 +57,7 @@ public class SmellNoteRegisterActivity extends AppCompatActivity {
     TextView perfumeInfo;
     TextView userWrite;
     Bitmap bitmap;
+    String getTime;
     ArrayList<HashMap<String, String>> searchList ;
     int checkedImageId;
 
@@ -87,7 +88,7 @@ public class SmellNoteRegisterActivity extends AppCompatActivity {
         long now = System.currentTimeMillis();
         Date mDate = new Date(now);
         SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        String getTime = simpleDate.format(mDate);
+        getTime = simpleDate.format(mDate);
         TextView dateTime = findViewById(R.id.editTextDate);
         dateTime.setText(getTime);
 
@@ -137,8 +138,34 @@ public class SmellNoteRegisterActivity extends AppCompatActivity {
                 finish();
                 break;
 
+            case R.id.submit_Btn:
+                HashMap<String ,Object> memo = new HashMap<>();
+                memo.put("nick",nick);
+                memo.put("brand",searchList.get(checkedImageId).get("kr_brand"));
+                memo.put("fragrance",searchList.get(checkedImageId).get("kr_name"));
+                memo.put("comment",userWrite.getText());
+                //memo.put("datetime",getTime);
+                Call<Post> submit = apiService.addMemoAPI(memo);
+                submit.enqueue(new Callback<Post>() {
+                    @Override
+                    public void onResponse(Call<Post> call, Response<Post> response) {
+                        Log.i("AddMemo","success");
+                        Log.i("AddMemo",nick+" | "+searchList.get(checkedImageId).get("brand")+" | "+searchList.get(checkedImageId).get("kr_name")+" | "+userWrite.getText());
+                        response.body().getMessage();
+                        Toast.makeText(getApplicationContext(), "리뷰가 성공적으로 등록되었습니다", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), SmellNoteMainActivity.class);
+                        intent.putExtra("nick", nick);
+                        startActivity(intent);
+                        finish();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Post> call, Throwable t) {
+                        Log.i("AddMemo","fail");
+                        t.printStackTrace();
+                    }
+                });
         }
-
     }
-
 }

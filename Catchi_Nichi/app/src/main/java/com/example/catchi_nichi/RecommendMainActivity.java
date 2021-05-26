@@ -65,6 +65,27 @@ public class RecommendMainActivity extends AppCompatActivity {
                 finish();
                 break;
 
+            case R.id.todayBtn:
+                Intent intent6 = new Intent(getApplicationContext(), RecommendTodayActivity.class);
+                intent6.putExtra("nick",nick);
+                startActivity(intent6);
+                finish();
+                break;
+
+            case R.id.similarBtn:
+                Intent intent7 = new Intent(getApplicationContext(), RecommendSimilarActivity.class);
+                intent7.putExtra("nick",nick);
+                startActivity(intent7);
+                finish();
+                break;
+
+            case R.id.mypage_btn:
+                Intent intent8 = new Intent(getApplicationContext(), MyPageActivity.class);
+                intent8.putExtra("nick", nick);
+                startActivity(intent8);
+                finish();
+                break;
+
 
 
         }

@@ -1,16 +1,19 @@
 package com.example.catchi_nichi;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.util.HashMap;
 
@@ -32,6 +35,7 @@ public class NicknameActivity extends AppCompatActivity {
 
     //수신데이터
     String email, phone, password, gender, age;
+    EditText shText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,32 +78,47 @@ public class NicknameActivity extends AppCompatActivity {
                 nickName.put("gender",gender);
                 nickName.put("phone",phone);
                 nickName.put("password",password);
+
+                HashMap<String,Object> ckNick = new HashMap<>();
+                ckNick.put("nick",nick.getText().toString());
+                Call<Post> check_nick = apiService.checkNickAPI(ckNick);
                 Call<Post> nick_Name = apiService.signupAPI(nickName);
 
-                nick_Name.enqueue(new Callback<Post>() {
+                check_nick.enqueue(new Callback<Post>() {
                     @Override
                     public void onResponse(Call<Post> call, Response<Post> response) {
-                        try {
-                            if (response.body().getSuccess()) {
-                                Log.i("Nickname", "success");
-                                Log.i("Nickname", response.toString());
-                                Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다 :)", Toast.LENGTH_SHORT).show();
-                                Intent login = new Intent(getApplicationContext(), LoginActivity.class);
-                                startActivity(login);
-                                finish(); }
-                            else {
-                                Log.i("Nickname", "fail");
-                                Toast.makeText(getApplicationContext(), "동일한 닉네임이 존재합니다.", Toast.LENGTH_SHORT).show(); }
-                        }catch (Exception e) {
-                            Log.i("Nickname", "fail");
-                            e.printStackTrace();
-                        }}
-                        @Override
-                        public void onFailure (Call < Post > call, Throwable t){
-                                Log.i("searchInfo", "fail");
-                                t.printStackTrace();
+                        if (response.body().getSuccess()){
+                            Log.i("닉네임중복", "ok");
+
+                            nick_Name.enqueue(new Callback<Post>() {
+                                @Override
+                                public void onResponse(Call<Post> call, Response<Post> response) {
+                                    Log.i("회원가입", "success");
+                                    Log.i("회원가입", response.toString());
+                                    Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다 :)", Toast.LENGTH_SHORT).show();
+                                    Intent usedPerfume = new Intent(getApplicationContext(), UsedPerfumeActivity.class);
+                                    usedPerfume.putExtra("nickname",nick.getText().toString());
+                                    startActivity(usedPerfume);
+                                    finish();
+                                }
+
+                                @Override
+                                public void onFailure(Call<Post> call, Throwable t) {
+
+                                }
+                            });
+
+                        }
+                        else{
+                            Log.i("닉네임중복", "fail");
+                            Toast.makeText(getApplicationContext(), "동일한 닉네임이 존재합니다.", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
+                    @Override
+                    public void onFailure(Call<Post> call, Throwable t) {
+
+                    }
                 });
 
     }

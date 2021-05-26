@@ -113,6 +113,23 @@ public class searchResultActivity extends AppCompatActivity {
             perfumeImageBtn.setId(temp);
             perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
+            final int x = temp;
+
+            perfumeImageBtn.setOnClickListener(v -> {
+                Intent intent2 = new Intent(getApplicationContext(), PerfumeDataActivity.class);
+                intent2.putExtra("img",searchList.get(x).get("img"));
+                intent2.putExtra("kr_name",searchList.get(x).get("kr_name"));
+                intent2.putExtra("en_name",searchList.get(x).get("en_name"));
+                intent2.putExtra("brand",searchList.get(x).get("brand"));
+                intent2.putExtra("kr_brand",searchList.get(x).get("kr_brand"));
+                intent2.putExtra("likes",searchList.get(x).get("likes"));
+                intent2.putExtra("countingReview",searchList.get(x).get("countingReview"));
+                intent2.putExtra("avgStars",searchList.get(x).get("avgStars"));
+                intent2.putExtra("nick",nick);
+                startActivity(intent2);
+                finish();
+            });
+
             group = new LinearLayout(this);
             group.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -230,6 +247,13 @@ public class searchResultActivity extends AppCompatActivity {
                 Intent intent5 = new Intent(getApplicationContext(), RecommendMainActivity.class);
                 intent5.putExtra("nick",nick);
                 startActivity(intent5);
+                finish();
+                break;
+
+            case R.id.mypage_btn:
+                Intent intent7 = new Intent(getApplicationContext(), MyPageActivity.class);
+                intent7.putExtra("nick", nick);
+                startActivity(intent7);
                 finish();
                 break;
         }

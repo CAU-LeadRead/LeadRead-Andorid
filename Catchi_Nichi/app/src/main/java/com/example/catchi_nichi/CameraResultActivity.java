@@ -155,6 +155,13 @@ public class CameraResultActivity extends AppCompatActivity {
                 startActivity(intent6);
                 finish();
                 break;
+
+            case R.id.mypage_btn:
+                Intent intent7 = new Intent(getApplicationContext(), MyPageActivity.class);
+                intent7.putExtra("nick", nick);
+                startActivity(intent7);
+                finish();
+                break;
         }
     }
 

@@ -103,12 +103,12 @@
 
     <ImageButton
         android:id="@+id/recommend_btn"
-        android:layout_width="52dp"
-        android:layout_height="54dp"
+        android:layout_width="57dp"
+        android:layout_height="57dp"
         android:layout_marginLeft="5dp"
         android:layout_weight="1"
-        android:onClick="onClick"
         android:background="@color/tumyeongsaeg"
+        android:onClick="onClick"
         android:padding="0sp"
         android:scaleType="fitCenter"
         android:src="@drawable/recommend_icon"

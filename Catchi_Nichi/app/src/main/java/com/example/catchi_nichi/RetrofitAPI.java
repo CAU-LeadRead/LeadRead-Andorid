@@ -12,6 +12,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -49,12 +50,56 @@ public interface RetrofitAPI {
     Call <Post>  searchAPI(@Query("searchText") String searchText, @Query("order") String order, @Query("limit") Integer limit, @Query("offset" ) Integer offset , @Query("category" ) Integer category);
 
     @FormUrlEncoded
-    @POST("user/addNick")
-    Call <Post>  addNickAPI(@FieldMap HashMap<String, Object> param);
+    @POST("user/checkNick")
+    Call <Post>  checkNickAPI(@FieldMap HashMap<String, Object> param);
 
     @FormUrlEncoded
     @POST("search/picture/base64")
     Call <Post>  searchPicAPI (@FieldMap HashMap<String, Object> param);
+
+    @FormUrlEncoded
+    @POST("review/addReview")
+    Call <Post>  addReviewAPI (@FieldMap HashMap<String, Object> param);
+
+    @FormUrlEncoded
+    @POST("search/similar")
+    Call <Post>  recommendSimilarAPI (@FieldMap HashMap<String, Object> param);
+
+    @GET("memo/loadAll/{nick}")
+    Call <Post>  smellNoteAllAPI (@Path("nick") String nick);
+
+    @FormUrlEncoded
+    @POST("memo/addMemo")
+    Call <Post>  addMemoAPI (@FieldMap HashMap<String, Object> param);
+
+    @GET("memo/delete/{id}")
+    Call <Post>  deleteMemoAPI (@Path("id") Integer id);
+
+    @FormUrlEncoded
+    @PATCH("memo/update/{id}")
+    Call <Post> updateMemoAPI (@Path("id") Integer id,@FieldMap HashMap<String, Object> param);
+
+    @FormUrlEncoded
+    @PATCH("review/update/{id}")
+    Call <Post> updateReviewAPI (@Path("id") Integer id,@FieldMap HashMap<String, Object> param);
+
+    @GET("fragrance/note/{brand}/{fragrance}")
+    Call <Post>  perfumeNoteAPI (@Path("brand") String brand, @Path("fragrance") String fragrance);
+
+    @GET("review/{brand}/{fragrance}")
+    Call <Post>  perfumeReviewAPI (@Path("brand") String brand, @Path("fragrance") String fragrance);
+
+    @GET("recommend/personal/{nick}")
+    Call <Post>  recommendPersonalAPI (@Path("nick") String nick);
+
+    @GET("review/delete/{id}")
+    Call <Post>  deleteReviewAPI (@Path("id") Integer id);
+
+    @GET("recommend/mood")
+    Call <Post>  recommendMoodAPI (@Query("category1") String category1, @Query("category2") String category2);
+
+    @GET("review/{nick}")
+    Call <Post>  myReviewAPI (@Path("nick") String nick);
 
 }
 

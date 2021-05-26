@@ -1,5 +1,6 @@
 package com.example.catchi_nichi;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -229,6 +230,7 @@ public class starTab extends Fragment {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
             }
 
             @Override

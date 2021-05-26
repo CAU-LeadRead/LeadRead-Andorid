@@ -159,7 +159,7 @@ public class SmellNoteChooseActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "시향노트를 작성할 향수를 선택해주세요.", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), searchList.get(checkedImageId).get("kr_name")+" 향수의 시향노트가 작성됩니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), searchList.get(checkedImageId).get("kr_name")+" \n 향수의 시향노트가 작성됩니다.", Toast.LENGTH_SHORT).show();
                     Intent intent2 = new Intent(getApplicationContext(), SmellNoteRegisterActivity.class);
 
                     //선택향수번호

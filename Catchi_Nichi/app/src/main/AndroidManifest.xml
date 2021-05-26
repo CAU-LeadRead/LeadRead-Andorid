@@ -43,6 +43,31 @@
         <activity android:name=".SmellNoteRegisterActivity" android:windowSoftInputMode="adjustPan" ></activity>
         <activity android:name=".CameraResultActivity" android:windowSoftInputMode="adjustPan" ></activity>
         <activity android:name=".SmellNoteChooseActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".UsedPerfumeActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendSimilarActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendTodayActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendSimilarResultActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".SmellNoteConfineActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".SmellNoteModifyActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".PerfumeDataActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".AddReviewActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".ConfirmReviewActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".ModifyReviewActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendCityActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendCity2Activity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendFloralActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendFloral2Activity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendFreshActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendFresh2Activity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendOrientalActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendOriental2Activity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendTodayResultActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendTodaySecondActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendTodayStartActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendWoodyActivity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".RecommendWoody2Activity" android:windowSoftInputMode="adjustPan" ></activity>
+        <activity android:name=".MyPageActivity" android:windowSoftInputMode="adjustPan" ></activity>
+
 
     </application>
 

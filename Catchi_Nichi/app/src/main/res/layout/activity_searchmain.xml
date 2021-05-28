@@ -204,12 +204,14 @@
 
 
     </com.google.android.material.tabs.TabLayout>
+
     <FrameLayout
         android:id="@+id/frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/tabs"
-        ></FrameLayout>
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"></FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

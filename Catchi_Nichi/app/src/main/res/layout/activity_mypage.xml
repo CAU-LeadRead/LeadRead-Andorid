@@ -143,7 +143,7 @@
         app:layout_constraintVertical_bias="0.128" />
 
     <HorizontalScrollView
-        android:layout_width="match_parent"
+        android:layout_width="370dp"
         android:layout_height="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -230,14 +230,15 @@
         android:layout_width="350dp"
         android:layout_height="16dp"
         android:layout_marginLeft="16dp"
-        android:textSize="13sp"
         android:text="회원 님께 추천드리는 향수입니다."
+        android:textSize="13sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintHorizontal_bias="0.066"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
+        app:layout_constraintVertical_bias="0.672" />
 
     <TextView
         android:id="@+id/reviewNotice"
@@ -246,17 +247,18 @@
         android:layout_marginLeft="16dp"
         android:text="회원 님이 작성하신 향수 리뷰입니다."
         android:textSize="13sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.22" />
+        app:layout_constraintVertical_bias="0.211" />
 
     <ScrollView
         android:id="@+id/InfoView"
-        android:layout_width="380dp"
-        android:layout_height="230dp"
+        android:layout_width="370dp"
+        android:layout_height="300dp"
         android:layout_margin="13dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -264,15 +266,15 @@
         android:scrollbarThumbVertical="@color/darkgray"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.381">
+        app:layout_constraintVertical_bias="0.387">
 
         <LinearLayout
             android:id="@+id/Info"
-            android:layout_width="380dp"
+            android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_weight="10"
             android:orientation="vertical">

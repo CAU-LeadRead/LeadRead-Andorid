@@ -66,6 +66,7 @@ public class AddReviewActivity extends AppCompatActivity {
     ImageView perfumeImg;
     TextView perfumeText;
     EditText userWrite;
+    TextView writerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +97,8 @@ public class AddReviewActivity extends AppCompatActivity {
         perfumeImg = findViewById(R.id.perfumeImg);
         perfumeText = findViewById(R.id.perfumeText);
         userWrite = findViewById(R.id.userWrite);
+        writerName = findViewById(R.id.writerName);
+        writerName.setText(nick);
 
         Spinner();
 

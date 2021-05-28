@@ -154,15 +154,14 @@
         android:layout_width="350dp"
         android:layout_height="16dp"
         android:layout_marginLeft="16dp"
-        android:textSize="13sp"
         android:text="회원 님께 추천드리는 향수입니다."
+        android:textSize="13sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635" />
-
+        app:layout_constraintVertical_bias="0.653" />
 
     <ImageButton
         android:id="@+id/home_btn"
@@ -256,14 +255,17 @@
 
     />
 
-    <ImageButton
+
+
+    <Button
         android:id="@+id/searchButton"
-        android:layout_width="383dp"
-        android:layout_height="43dp"
-        android:background="@color/tumyeongsaeg"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/pink"
         android:onClick="onClick"
         android:padding="0sp"
-        android:scaleType="fitCenter"
+        android:text="어떤 향수를 찾고 계신가요 ?                            "
+        android:textColor="@color/darkgray"
         android:src="@drawable/blank2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -271,21 +273,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.208" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="어떤 향수를 찾고 계신가요 ?"
-        android:scrollHorizontally="true"
-        android:textSize="15sp"
-        android:padding="0sp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintVertical_bias="0.218"  />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

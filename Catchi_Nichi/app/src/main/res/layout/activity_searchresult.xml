@@ -12,25 +12,26 @@
     <ScrollView
         android:id="@+id/InfoView"
         android:layout_width="380dp"
-        android:layout_height="410dp"
+        android:layout_height="500dp"
         android:layout_margin="13dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:scrollbars="vertical"
-        android:scrollbarThumbVertical="@color/darkgray"
         android:scrollbarSize="5dp"
+        android:scrollbarThumbVertical="@color/darkgray"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6">
+        app:layout_constraintVertical_bias="0.562">
 
         <LinearLayout
             android:id="@+id/Info"
             android:layout_width="380dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="10">
+            android:layout_weight="10"
+            android:orientation="vertical">
 
 
         </LinearLayout>
@@ -198,7 +199,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.141" />
+        app:layout_constraintVertical_bias="0.126" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

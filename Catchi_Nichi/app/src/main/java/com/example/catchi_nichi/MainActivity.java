@@ -77,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("recommendPersonal","success");
                 searchList = response.body().getSearchList();
 
-                //개인별 추천 해결 시 호출
-                //Load();
+                Load();
             }
 
             @Override

@@ -63,7 +63,7 @@ public class searchResultActivity extends AppCompatActivity {
     Bitmap bitmap;
     ImageButton perfumeImageBtn;
     int temp;
-    ArrayList<HashMap<String, String>> searchList ;
+    ArrayList<HashMap<String, String>> searchList;
     String enterSearch;
     int getCount;
     EditText shText;
@@ -84,7 +84,7 @@ public class searchResultActivity extends AppCompatActivity {
         Intent intent = getIntent();
         searchList = (ArrayList<HashMap<String, String>>) intent.getSerializableExtra("searchList");
         enterSearch = intent.getStringExtra("enterSearch");
-        getCount = intent.getIntExtra("getCount",0);
+        getCount = intent.getIntExtra("getCount", 0);
         items = intent.getStringArrayExtra("autoSearchItem");
         nick = intent.getStringExtra("nick"); //수신데이터
 
@@ -101,44 +101,45 @@ public class searchResultActivity extends AppCompatActivity {
         Adapter();
         TextView resultText = findViewById(R.id.resultView);
         resultText.setTypeface(Typeface.DEFAULT_BOLD);
-        resultText.setText(getCount+" 개의 향수가 검색되었습니다.");
+        resultText.setText(getCount + " 개의 향수가 검색되었습니다.");
 
         resultView = findViewById(R.id.Info);
         resultView.setOrientation(LinearLayout.VERTICAL);
 
-        for(temp=0;temp<searchList.size();temp++){
+        for (temp = 0; temp < searchList.size(); temp++) {
 
             perfumeImageBtn = new ImageButton(this);
-            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(600,500));
+            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(350, 300));
             perfumeImageBtn.setId(temp);
             perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            perfumeImageBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
             final int x = temp;
 
             perfumeImageBtn.setOnClickListener(v -> {
                 Intent intent2 = new Intent(getApplicationContext(), PerfumeDataActivity.class);
-                intent2.putExtra("img",searchList.get(x).get("img"));
-                intent2.putExtra("kr_name",searchList.get(x).get("kr_name"));
-                intent2.putExtra("en_name",searchList.get(x).get("en_name"));
-                intent2.putExtra("brand",searchList.get(x).get("brand"));
-                intent2.putExtra("kr_brand",searchList.get(x).get("kr_brand"));
-                intent2.putExtra("likes",searchList.get(x).get("likes"));
-                intent2.putExtra("countingReview",searchList.get(x).get("countingReview"));
-                intent2.putExtra("avgStars",searchList.get(x).get("avgStars"));
-                intent2.putExtra("nick",nick);
+                intent2.putExtra("img", searchList.get(x).get("img"));
+                intent2.putExtra("kr_name", searchList.get(x).get("kr_name"));
+                intent2.putExtra("en_name", searchList.get(x).get("en_name"));
+                intent2.putExtra("brand", searchList.get(x).get("brand"));
+                intent2.putExtra("kr_brand", searchList.get(x).get("kr_brand"));
+                intent2.putExtra("likes", searchList.get(x).get("likes"));
+                intent2.putExtra("countingReview", searchList.get(x).get("countingReview"));
+                intent2.putExtra("avgStars", searchList.get(x).get("avgStars"));
+                intent2.putExtra("nick", nick);
                 startActivity(intent2);
                 finish();
             });
 
             group = new LinearLayout(this);
             group.setOrientation(LinearLayout.HORIZONTAL);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(5,15,5,15);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(5, 15, 5, 15);
             group.setLayoutParams(params);
 
-            Thread mThread = new Thread(){
-                public void run(){
-                    try{
+            Thread mThread = new Thread() {
+                public void run() {
+                    try {
                         URL url = new URL(searchList.get(temp).get("img"));
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setDoInput(true);
@@ -156,7 +157,7 @@ public class searchResultActivity extends AppCompatActivity {
             };
             mThread.start();
 
-            try{
+            try {
                 mThread.join();
                 perfumeImageBtn.setImageBitmap(bitmap);
             } catch (InterruptedException e) {
@@ -165,8 +166,8 @@ public class searchResultActivity extends AppCompatActivity {
 
             TextView perfumeInfo = new TextView(this);
             perfumeInfo.setGravity(Gravity.CENTER);
-            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(600,500));
-            perfumeInfo.setText("\n  "+ searchList.get(temp).get("kr_name") + "\n  " + searchList.get(temp).get("brand") + "\n  " + "Likes : " + searchList.get(temp).get("likes")+ "\n  "+ "리뷰수 : " + searchList.get(temp).get("countingReview")+ "\n  "+ "평균별점 : " + searchList.get(temp).get("avgStars")+ "\n");
+            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(350, 300));
+            perfumeInfo.setText("\n  " + searchList.get(temp).get("kr_name") + "\n  " + searchList.get(temp).get("brand") + "\n  " + "Likes : " + searchList.get(temp).get("likes") + "\n  " + "리뷰수 : " + searchList.get(temp).get("countingReview") + "\n  " + "평균별점 : " + searchList.get(temp).get("avgStars") + "\n");
             //perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);
             group.setGravity(Gravity.CENTER);
 
@@ -179,7 +180,7 @@ public class searchResultActivity extends AppCompatActivity {
         Log.i("searchResult", String.valueOf(searchList));
     }
 
-    public void Adapter(){
+    public void Adapter() {
         ArrayAdapter<String> adWord = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, items);
         AutoCompleteTextView edit = (AutoCompleteTextView) findViewById(R.id.search);
         edit.setAdapter(adWord);
@@ -190,31 +191,31 @@ public class searchResultActivity extends AppCompatActivity {
 
         String searchText = shText.getText().toString();
 
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.searchButton:
 
-                Call<Post> search = apiService.searchAPI(searchText,"likes",999,0,1);
+                Call<Post> search = apiService.searchAPI(searchText, "likes", 999, 0, 1);
                 search.enqueue(new Callback<Post>() {
                     @Override
                     public void onResponse(Call<Post> call, Response<Post> response) {
-                        Log.i("searchInfo","success");
-                        Log.i("searchInfo",response.toString());
+                        Log.i("searchInfo", "success");
+                        Log.i("searchInfo", response.toString());
 
                         //송신 데이터
                         Intent intent = new Intent(getApplicationContext(), searchResultActivity.class);
-                        intent.putExtra("searchList",response.body().getSearchList());
-                        intent.putExtra("getCount",response.body().getCount());
-                        intent.putExtra("enterSearch",searchText);
-                        intent.putExtra("nick",nick);
-                        intent.putExtra("autoSearchItem",items);
+                        intent.putExtra("searchList", response.body().getSearchList());
+                        intent.putExtra("getCount", response.body().getCount());
+                        intent.putExtra("enterSearch", searchText);
+                        intent.putExtra("nick", nick);
+                        intent.putExtra("autoSearchItem", items);
                         startActivity(intent);
                         finish();
                     }
 
                     @Override
                     public void onFailure(Call<Post> call, Throwable t) {
-                        Log.i("searchInfo","fail");
+                        Log.i("searchInfo", "fail");
                         t.printStackTrace();
                     }
 
@@ -224,28 +225,28 @@ public class searchResultActivity extends AppCompatActivity {
 
             case R.id.camera_search:
                 Intent intent2 = new Intent(getApplicationContext(), CameraSearchActivity.class);
-                intent2.putExtra("nick",nick);
+                intent2.putExtra("nick", nick);
                 startActivity(intent2);
                 finish();
                 break;
 
             case R.id.smellnote_btn:
                 Intent intent3 = new Intent(getApplicationContext(), SmellNoteMainActivity.class);
-                intent3.putExtra("nick",nick);
+                intent3.putExtra("nick", nick);
                 startActivity(intent3);
                 finish();
                 break;
 
-            case R.id. home_btn:
+            case R.id.home_btn:
                 Intent intent4 = new Intent(getApplicationContext(), MainActivity.class);
-                intent4.putExtra("nick",nick);
+                intent4.putExtra("nick", nick);
                 startActivity(intent4);
                 finish();
                 break;
 
-            case R.id. recommend_btn:
+            case R.id.recommend_btn:
                 Intent intent5 = new Intent(getApplicationContext(), RecommendMainActivity.class);
-                intent5.putExtra("nick",nick);
+                intent5.putExtra("nick", nick);
                 startActivity(intent5);
                 finish();
                 break;
@@ -258,5 +259,4 @@ public class searchResultActivity extends AppCompatActivity {
                 break;
         }
     }
-
 }

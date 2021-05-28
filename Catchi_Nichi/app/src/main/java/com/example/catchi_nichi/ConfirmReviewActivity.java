@@ -84,7 +84,7 @@ public class ConfirmReviewActivity extends AppCompatActivity {
         review_longevity = intent.getFloatExtra("review_longevity",0);
         review_mood = intent.getStringExtra("review_mood");
         review_comment = intent.getStringExtra("review_comment");
-        review_id = (int) intent.getFloatExtra("review_id",0);
+        review_id = intent.getIntExtra("review_id",0);
 
 
         perfumePic = findViewById(R.id.imageView);

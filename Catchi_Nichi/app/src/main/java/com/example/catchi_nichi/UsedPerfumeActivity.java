@@ -41,6 +41,7 @@ public class UsedPerfumeActivity extends AppCompatActivity {
 
     String nickname;
     String[] itemsPerfume;
+    String[] itemsPerfumeEn;
     String[] itemsBrand;
     String[] items;
     float stars=0;
@@ -65,10 +66,12 @@ public class UsedPerfumeActivity extends AppCompatActivity {
             public void onResponse(Call<Post> call, Response<Post> response) {
                 itemsPerfume = new String[response.body().getCount()];
                 itemsBrand  = new String[response.body().getCount()];
+                itemsPerfumeEn = new String[response.body().getCount()];
                 items = new String[response.body().getCount()];
                 for(int i=0; i<response.body().getCount();i++){
-                    itemsPerfume[i]=(response.body().getSearchList().get(i).get("en_name"));
+                    itemsPerfume[i]=(response.body().getSearchList().get(i).get("kr_name"));
                     itemsBrand[i]=(response.body().getSearchList().get(i).get("brand"));
+                    itemsPerfumeEn[i] = (response.body().getSearchList().get(i).get("en_name"));
                     items[i] = "["+itemsBrand[i]+"]  "+itemsPerfume[i];
                 }
                 Spinner();
@@ -116,23 +119,24 @@ public class UsedPerfumeActivity extends AppCompatActivity {
             case R.id.plusBtn:
 
                 Log.i("nick",nickname);
-                Log.i("en_name",itemsPerfume[selectedItem]);
+                Log.i("kr_name",itemsPerfume[selectedItem]);
+                Log.i("en_name",itemsPerfumeEn[selectedItem]);
                 Log.i("brand",itemsBrand[selectedItem]);
                 Log.i("stars", String.valueOf(stars));
 
                 HashMap<String, Object> review = new HashMap<>();
                 review.put("nick",nickname);
-                review.put("en_name",itemsPerfume[selectedItem]);
+                review.put("kr_name",itemsPerfume[selectedItem]);
                 review.put("brand",itemsBrand[selectedItem]);
                 review.put("stars",stars);
                 review.put("category",0);
+                review.put("en_name",itemsPerfumeEn[selectedItem]);
 
                 Call<Post> addReview = apiService.addReviewAPI(review);
                 addReview.enqueue(new Callback<Post>() {
                     @Override
                     public void onResponse(Call<Post> call, Response<Post> response) {
                         Log.i("usedPerfume","success");
-                        response.body().getMessage();
                     }
 
                     @Override
@@ -158,18 +162,17 @@ public class UsedPerfumeActivity extends AppCompatActivity {
             case R.id.confirmBtn:
                 HashMap<String, Object> review2 = new HashMap<>();
                 review2.put("nick",nickname);
-                review2.put("en_name",itemsPerfume[selectedItem]);
+                review2.put("kr_name",itemsPerfume[selectedItem]);
                 review2.put("brand",itemsBrand[selectedItem]);
                 review2.put("stars",stars);
                 review2.put("category",0);
+                review2.put("en_name",itemsPerfumeEn[selectedItem]);
 
                 Call<Post> addReview2 = apiService.addReviewAPI(review2);
                 addReview2.enqueue(new Callback<Post>() {
                     @Override
                     public void onResponse(Call<Post> call, Response<Post> response) {
                         Log.i("usedPerfume","success");
-                        response.body().getMessage();
-
                     }
 
                     @Override

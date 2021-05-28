@@ -159,7 +159,7 @@
     <ScrollView
         android:id="@+id/smellNoteView"
         android:layout_width="380dp"
-        android:layout_height="380dp"
+        android:layout_height="450dp"
         android:layout_margin="13dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -167,11 +167,11 @@
         android:scrollbarThumbVertical="@color/darkgray"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.697">
+        app:layout_constraintVertical_bias="0.669">
 
 
         <LinearLayout

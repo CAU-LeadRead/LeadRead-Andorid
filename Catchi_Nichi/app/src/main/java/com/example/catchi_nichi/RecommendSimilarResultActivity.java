@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,9 +78,10 @@ public class RecommendSimilarResultActivity extends AppCompatActivity {
         for(temp=0;temp<searchList.size();temp++){
 
             perfumeImageBtn = new ImageButton(this);
-            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(600,500));
+            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(350,300));
             perfumeImageBtn.setId(temp);
             perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            perfumeImageBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
 
             final int x = temp;
@@ -133,7 +135,7 @@ public class RecommendSimilarResultActivity extends AppCompatActivity {
 
             TextView perfumeInfo = new TextView(this);
             perfumeInfo.setGravity(Gravity.CENTER);
-            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(600,500));
+            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(350,300));
             perfumeInfo.setTextColor(Color.WHITE);
             perfumeInfo.setText("\n  "+ searchList.get(temp).get("en_name") + "\n  " + searchList.get(temp).get("brand") + "\n  " );
             //perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);

@@ -31,7 +31,7 @@ public class Post {
     private ArrayList<HashMap<String, String>> searchList;
 
     @SerializedName("review")
-    private ArrayList<HashMap<String, Object>> reviewList;
+    private ArrayList<HashMap<String, Object>> review;
 
     @SerializedName("recommendList")
     private ArrayList<HashMap<String, String>> recommendList;
@@ -95,7 +95,7 @@ public class Post {
     }
 
     public ArrayList<HashMap<String, String>> getSearchList() { return searchList; }
-    public ArrayList<HashMap<String, Object>> getReviewList() { return reviewList; }
+    public ArrayList<HashMap<String, Object>> getReview() { return review; }
     public ArrayList<HashMap<String, String>> getRecommendList() { return recommendList; }
 
     public ArrayList getTop(){return top;}
@@ -135,6 +135,66 @@ public class Post {
 
             @SerializedName("avgStars") String avgStars;
             public String getStars(){return avgStars;}
+        }
+
+
+    }
+
+    //myPage
+    @SerializedName("reviewList")
+    private List<reviewList> reviewList = new ArrayList<>();
+    public List<reviewList> getReviewList(){return reviewList;}
+
+    public class reviewList{
+        @SerializedName("id") Integer id;
+        public Integer getId(){return id;}
+
+        @SerializedName("kr_brand") String kr_brand;
+        public String getKrBrand(){return kr_brand;}
+
+        @SerializedName("kr_name") String kr_name;
+        public String getName(){return kr_name;}
+
+        @SerializedName("stars") Float stars;
+        public Float getStars(){return stars;}
+
+        @SerializedName("longevity") Float longevity;
+        public Float getLongevity(){return longevity;}
+
+        @SerializedName("mood") String mood;
+        public String getMood(){return mood;}
+
+        @SerializedName("comment") String comment;
+        public String getComment(){return comment;}
+
+        @SerializedName("brand") String brand;
+        public String getBrand(){return brand;}
+
+        @SerializedName("en_name") String en_name;
+        public String getEnname(){return en_name;}
+
+        @SerializedName("UserNick") String userNick;
+        public String getUserNick(){return userNick;}
+
+        @SerializedName("Fragrance") Fragrance fragrance;
+        public class Fragrance{
+            @SerializedName("img") String img;
+            public String getImg(){return img;}
+            @SerializedName("brand") String brand;
+            public String getBrand(){return brand;}
+            @SerializedName("kr_name") String kr_name;
+            public String getKr_name(){return kr_name;}
+            @SerializedName("kr_brand") String kr_brand;
+            public String getKr_brand(){return kr_brand;}
+            @SerializedName("en_name") String en_name;
+            public String getEn_name(){return en_name;}
+            @SerializedName("countingReview") Integer countingReview;
+            public Integer getCountingReview(){return countingReview;}
+            @SerializedName("likes") Integer likes;
+            public Integer getLikes(){return likes;}
+            @SerializedName("avgStars") String avgStars;
+            public String getAvgStars(){return avgStars;}
+
         }
 
 

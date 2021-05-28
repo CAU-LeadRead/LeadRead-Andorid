@@ -143,11 +143,11 @@
         <TextView
             android:layout_width="380dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_margin="10dp"
             android:text="향수와 어울리는 이미지를 선택해주세요."
             android:textSize="15dp"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"
-            />
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spinner"
@@ -170,6 +170,7 @@
             <TextView
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:text="총 별점"
                 android:textSize="15dp"
                 android:textStyle="bold"
@@ -178,6 +179,7 @@
                 />
             <RatingBar
                 android:id="@+id/starRating"
+                android:layout_marginLeft="10dp"
                 android:layout_width="240dp"
                 android:layout_height="50dp"
                 android:progressTint="@color/pink" />
@@ -192,6 +194,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:text="지속성"
+                android:layout_marginLeft="10dp"
                 android:textSize="15dp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
@@ -201,6 +204,7 @@
                 android:id="@+id/longevityRating"
                 android:layout_width="240dp"
                 android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
                 android:progressTint="@color/pink" />
 
         </LinearLayout>

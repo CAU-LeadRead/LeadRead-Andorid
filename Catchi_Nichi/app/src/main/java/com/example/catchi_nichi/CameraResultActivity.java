@@ -70,9 +70,10 @@ public class CameraResultActivity extends AppCompatActivity {
         for(temp=0;temp<searchList.size();temp++){
 
             perfumeImageBtn = new ImageButton(this);
-            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(600,500));
+            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(350,300));
             perfumeImageBtn.setId(temp);
             perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            perfumeImageBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
             group = new LinearLayout(this);
             group.setOrientation(LinearLayout.HORIZONTAL);
@@ -109,7 +110,7 @@ public class CameraResultActivity extends AppCompatActivity {
 
             TextView perfumeInfo = new TextView(this);
             perfumeInfo.setGravity(Gravity.CENTER);
-            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(600,500));
+            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(350,300));
             perfumeInfo.setText("\n  "+ searchList.get(temp).get("kr_name") + "\n  " + searchList.get(temp).get("brand") + "\n  " + "Likes : " + searchList.get(temp).get("likes")+ "\n  "+ "리뷰수 : " + searchList.get(temp).get("countingReview")+ "\n  "+ "평균별점 : " + searchList.get(temp).get("avgStars")+ "\n");
             //perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);
             group.setGravity(Gravity.CENTER);

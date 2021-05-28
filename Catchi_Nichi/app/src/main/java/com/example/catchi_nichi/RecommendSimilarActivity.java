@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -191,14 +192,15 @@ public class RecommendSimilarActivity extends AppCompatActivity {
         for(temp=0;temp<searchList.size();temp++){
 
             perfumeImageBtn = new ImageButton(this);
-            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(600,500));
+            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(350,300));
             perfumeImageBtn.setId(temp);
             perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            perfumeImageBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             perfumeImageBtn.setOnClickListener(v -> {
                 checkedImageId = v.getId();
                 selectedText.setTextColor(Color.WHITE);
-                selectedText.setText(searchList.get(checkedImageId).get("brand") +"의 '"+searchList.get(checkedImageId).get("en_name")+"' 가 \n선택되었습니다.");
-                Log.i("selected perfume: ",searchList.get(checkedImageId).get("en_name"));
+                selectedText.setText(searchList.get(checkedImageId).get("brand") +"의 '"+searchList.get(checkedImageId).get("kr_name")+"' 가 \n선택되었습니다.");
+                Log.i("selected perfume: ",searchList.get(checkedImageId).get("kr_name"));
             });
 
             group = new LinearLayout(this);
@@ -236,9 +238,9 @@ public class RecommendSimilarActivity extends AppCompatActivity {
 
             TextView perfumeInfo = new TextView(this);
             perfumeInfo.setGravity(Gravity.CENTER);
-            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(600,500));
+            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(350,300));
             perfumeInfo.setTextColor(Color.WHITE);
-            perfumeInfo.setText("\n  "+ searchList.get(temp).get("en_name") + "\n  " + searchList.get(temp).get("brand") +"\n");
+            perfumeInfo.setText("\n  "+ searchList.get(temp).get("kr_name") + "\n  " + searchList.get(temp).get("brand") +"\n");
             //perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);
             group.setGravity(Gravity.CENTER);
 

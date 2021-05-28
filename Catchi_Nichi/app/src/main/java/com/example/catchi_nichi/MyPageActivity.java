@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -47,12 +48,26 @@ public class MyPageActivity extends AppCompatActivity {
     ArrayList<HashMap<String, String>> searchList ;
     Bitmap bitmap1,bitmap2,bitmap3,bitmap4,bitmap5;
 
-    ArrayList<HashMap<String, Object>> reviewList;
     LinearLayout resultView;
     LinearLayout group;
     ImageButton perfumeImageBtn;
     int temp;
     Bitmap bitmap;
+
+    String[] myReviewImgList ;
+    String[] myReviewKrNameList ;
+    String[] myReviewBrandList ;
+    Integer[] myReviewIdList ;
+    String[] myReviewEnNameList;
+    String[] myReviewKrBrandList;
+    Integer[] myReviewLikesList ;
+    Integer[] myReviewCountingReviewList ;
+    String[] myReviewAvgStarsList;
+
+    Float[] myReviewLongevity;
+    Float[] myReviewStar;
+    String[] myReviewMood;
+    String[] myReviewComment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,12 +82,11 @@ public class MyPageActivity extends AppCompatActivity {
         nick = intent.getStringExtra("nick");
 
         myPageText = findViewById(R.id.myPageText);
-        myPageText.setText(nick+"의 페이지");
+        myPageText.setText(nick+"님의 페이지");
 
         memberNotice = findViewById(R.id.memNotice);
         reviewNotice = findViewById(R.id.reviewNotice);
-        memberNotice.setText(nick+"' 님께 추천드리는 향수입니다.");
-        reviewNotice.setText(nick+" 님이 작성하신 향수 리뷰입니다.");
+        memberNotice.setText(nick+" 님께 추천드리는 향수입니다.");
 
         //personal recommend
         Call<Post> recommendPersonal = apiService.recommendPersonalAPI(nick);
@@ -81,9 +95,7 @@ public class MyPageActivity extends AppCompatActivity {
             public void onResponse(Call<Post> call, Response<Post> response) {
                 Log.i("recommendPersonal","success");
                 searchList = response.body().getSearchList();
-
-                //개인별 추천 해결 시 호출
-                //Load();
+                Load();
             }
 
             @Override
@@ -100,9 +112,42 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                 Log.i("perfumeReview", "success");
-                reviewList = response.body().getReviewList();
-                Log.i("perfumeReview",response.body().getMessage());
 
+                myReviewImgList = new String [response.body().getReviewList().size()];
+                myReviewKrNameList = new String [response.body().getReviewList().size()];
+                myReviewBrandList = new String [response.body().getReviewList().size()];
+                myReviewIdList = new Integer [response.body().getReviewList().size()];
+                myReviewEnNameList= new String [response.body().getReviewList().size()];
+                myReviewKrBrandList= new String [response.body().getReviewList().size()];
+                myReviewLikesList = new Integer [response.body().getReviewList().size()];
+                myReviewCountingReviewList  = new Integer [response.body().getReviewList().size()];
+                myReviewAvgStarsList  = new String [response.body().getReviewList().size()];
+
+                myReviewLongevity = new Float [response.body().getReviewList().size()];
+                myReviewStar = new Float [response.body().getReviewList().size()];
+                myReviewMood = new String [response.body().getReviewList().size()];
+                myReviewComment = new String [response.body().getReviewList().size()];
+
+                reviewNotice.setText(nick+" 님이 작성하신 향수 리뷰는 "+response.body().getReviewList().size()+"개 입니다.");
+
+                for(int i=0;i<response.body().getReviewList().size();i++) {
+                    myReviewImgList[i] = response.body().getReviewList().get(i).fragrance.img;
+                    myReviewEnNameList[i] = response.body().getReviewList().get(i).fragrance.en_name;
+                    myReviewKrBrandList[i]= response.body().getReviewList().get(i).fragrance.kr_brand;
+                    myReviewLikesList[i]= response.body().getReviewList().get(i).fragrance.likes;
+                    myReviewCountingReviewList[i]= response.body().getReviewList().get(i).fragrance.countingReview;
+                    myReviewAvgStarsList[i]= response.body().getReviewList().get(i).fragrance.avgStars;
+                    myReviewKrNameList[i] = response.body().getReviewList().get(i).fragrance.kr_name;
+                    myReviewBrandList[i] = response.body().getReviewList().get(i).fragrance.brand;
+                    myReviewIdList[i] = response.body().getReviewList().get(i).id;
+
+                    myReviewLongevity[i] = response.body().getReviewList().get(i).longevity;
+                    myReviewStar[i] = response.body().getReviewList().get(i).stars;
+                    myReviewMood[i] = response.body().getReviewList().get(i).mood;
+                    myReviewComment[i] = response.body().getReviewList().get(i).comment;
+                }
+
+                Log.i("perfumeReview",response.body().getMessage());
                 drawReview();
             }
 
@@ -120,17 +165,12 @@ public class MyPageActivity extends AppCompatActivity {
         resultView = findViewById(R.id.Info);
         resultView.setOrientation(LinearLayout.VERTICAL);
 
-        for(temp=0;temp<reviewList.size();temp++){
-
-            perfumeImageBtn = new ImageButton(this);
-            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(600,500));
-            perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
-
-            /*for(temp=0;temp<reviewList.size();temp++){
+            for(temp=0;temp<myReviewImgList.length;temp++){
 
                 perfumeImageBtn = new ImageButton(this);
-                perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(600,500));
+                perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(350,300));
                 perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                perfumeImageBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
                 final int x = temp;
 
@@ -140,34 +180,33 @@ public class MyPageActivity extends AppCompatActivity {
                     intent2.putExtra("nick",nick);
 
                     //perfume 정보
-                    intent2.putExtra("img",img);
-                    intent2.putExtra("kr_name",kr_name);
-                    intent2.putExtra("en_name",en_name);
-                    intent2.putExtra("brand",brand);
-                    intent2.putExtra("kr_brand",kr_brand);
-                    intent2.putExtra("likes",likes);
-                    intent2.putExtra("countingReview",countingReview);
-                    intent2.putExtra("avgStars",avgStars);
+                    intent2.putExtra("img",myReviewImgList[x]);
+                    intent2.putExtra("kr_name",myReviewKrNameList[x]);
+                    intent2.putExtra("en_name",myReviewEnNameList[x]);
+                    intent2.putExtra("brand",myReviewBrandList[x]);
+                    intent2.putExtra("kr_brand",myReviewKrBrandList[x]);
+                    intent2.putExtra("likes",myReviewLikesList[x]);
+                    intent2.putExtra("countingReview",myReviewCountingReviewList[x]);
+                    intent2.putExtra("avgStars",myReviewAvgStarsList[x]);
 
                     //review 정보
-                    intent2.putExtra("review_writer",(String) reviewList.get(x).get("UserNick"));
-                    intent2.putExtra("review_longevity", ((Double) reviewList.get(x).get("longevity")).floatValue());
-                    intent2.putExtra("review_star", ((Double) reviewList.get(x).get("stars")).floatValue());
-                    intent2.putExtra("review_mood",(String) reviewList.get(x).get("mood"));
-                    intent2.putExtra("review_comment",(String)reviewList.get(x).get("comment"));
-                    intent2.putExtra("review_id",((Double) reviewList.get(x).get("id")).floatValue());
+                    intent2.putExtra("review_writer",nick);
+                    intent2.putExtra("review_longevity", myReviewLongevity[x]);
+                    intent2.putExtra("review_star", myReviewStar[x]);
+                    intent2.putExtra("review_mood",myReviewMood[x]);
+                    intent2.putExtra("review_comment",myReviewComment[x]);
+                    intent2.putExtra("review_id", myReviewIdList[x]);
 
                     startActivity(intent2);
                     finish();
                 });
 
-             */
 
 
             Thread mThread = new Thread(){
                 public void run(){
                     try{
-                        URL url = new URL(null); //img !!!!!!!
+                        URL url = new URL(myReviewImgList[temp]);
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setDoInput(true);
                         conn.connect();
@@ -200,9 +239,9 @@ public class MyPageActivity extends AppCompatActivity {
 
             TextView perfumeInfo = new TextView(this);
             perfumeInfo.setGravity(Gravity.CENTER);
-            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(600,500));
-            perfumeInfo.setText("별점: "+reviewList.get(temp).get("stars") +"\n 지속성: "+reviewList.get(temp).get("longevity") +"\n 분위기: "+reviewList.get(temp).get("mood") );
-            //perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);
+            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(350,300));
+            perfumeInfo.setText("\n  " + myReviewKrNameList[temp] + "\n  " + myReviewBrandList[temp] +"\n"+"\n"+ "별점: "+myReviewStar[temp] );
+            perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);
             group.setGravity(Gravity.CENTER);
 
 
@@ -210,10 +249,15 @@ public class MyPageActivity extends AppCompatActivity {
             group.addView(perfumeInfo);
             resultView.addView(group);
         }
-        Log.i("reviewResult", String.valueOf(reviewList));
     }
 
     void Load(){
+
+        imgBtn1 = findViewById(R.id.imgBtn1);
+        imgBtn2 = findViewById(R.id.imgBtn2);
+        imgBtn3 = findViewById(R.id.imgBtn3);
+        imgBtn4 = findViewById(R.id.imgBtn4);
+        imgBtn5 = findViewById(R.id.imgBtn5);
 
         Thread mThread = new Thread(){
             public void run(){

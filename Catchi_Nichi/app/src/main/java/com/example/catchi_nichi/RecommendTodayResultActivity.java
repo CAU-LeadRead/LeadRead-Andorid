@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -98,9 +99,10 @@ public class RecommendTodayResultActivity extends AppCompatActivity {
         for(temp=0;temp<recommendList.size();temp++){
 
             perfumeImageBtn = new ImageButton(this);
-            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(600,500));
+            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(350,300));
             perfumeImageBtn.setId(temp);
             perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            perfumeImageBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
             group = new LinearLayout(this);
             group.setOrientation(LinearLayout.HORIZONTAL);
@@ -137,7 +139,7 @@ public class RecommendTodayResultActivity extends AppCompatActivity {
 
             TextView perfumeInfo = new TextView(this);
             perfumeInfo.setGravity(Gravity.CENTER);
-            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(600,500));
+            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(350,300));
             //perfumeInfo.setTextColor(Color.WHITE);
             perfumeInfo.setText("\n  "+ recommendList.get(temp).get("kr_name") + "\n  " + recommendList.get(temp).get("brand") + "\n  " +"\n  " +  "Likes : " + recommendList.get(temp).get("likes")+ "\n  "+ "리뷰수 : " + recommendList.get(temp).get("countingReview")+ "\n  "+ "평균별점 : " + recommendList.get(temp).get("avgStars")+ "\n");
             //perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);

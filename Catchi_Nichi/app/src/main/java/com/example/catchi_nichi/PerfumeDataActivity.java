@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -169,7 +171,7 @@ public class PerfumeDataActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Post> call, Response<Post> response) {
                     Log.i("perfumeReview", "success");
-                    reviewList = response.body().getReviewList();
+                    reviewList = response.body().getReview();
                     Log.i("perfumeReview",response.body().getMessage());
 
                     drawReview();
@@ -191,8 +193,10 @@ public class PerfumeDataActivity extends AppCompatActivity {
         for(temp=0;temp<reviewList.size();temp++){
 
             perfumeImageBtn = new ImageButton(this);
-            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(600,500));
+            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(300,150));
             perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            perfumeImageBtn.setImageResource(R.drawable.user_image);
+            perfumeImageBtn.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
             final int x = temp;
 
@@ -223,33 +227,6 @@ public class PerfumeDataActivity extends AppCompatActivity {
                 finish();
             });
 
-            Thread mThread = new Thread(){
-                public void run(){
-                    try{
-                        URL url = new URL(img);
-                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                        conn.setDoInput(true);
-                        conn.connect();
-
-                        InputStream is = conn.getInputStream();
-                        bitmap = BitmapFactory.decodeStream(is);
-
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            mThread.start();
-
-            try{
-                mThread.join();
-                perfumeImageBtn.setImageBitmap(bitmap);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
             group = new LinearLayout(this);
             group.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -259,7 +236,7 @@ public class PerfumeDataActivity extends AppCompatActivity {
 
             TextView perfumeInfo = new TextView(this);
             perfumeInfo.setGravity(Gravity.CENTER);
-            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(600,500));
+            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(300,150));
             perfumeInfo.setText("닉네임: "+reviewList.get(temp).get("UserNick") +"\n 별점: "+reviewList.get(temp).get("stars") +"\n 지속성: "+reviewList.get(temp).get("longevity") +"\n 분위기: "+reviewList.get(temp).get("mood") );
             //perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);
             group.setGravity(Gravity.CENTER);

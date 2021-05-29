@@ -11,8 +11,8 @@
 
     <ScrollView
         android:id="@+id/InfoView"
-        android:layout_width="380dp"
-        android:layout_height="500dp"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
         android:layout_margin="13dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -55,8 +55,9 @@
 
     <ImageButton
         android:id="@+id/searchButton"
-        android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_width="30dp"
+        android:layout_marginRight="10dp"
         android:background="@color/tumyeongsaeg"
         android:padding="0sp"
         android:scaleType="fitCenter"
@@ -73,8 +74,10 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:id="@+id/search"
-        android:layout_width="280dp"
+        android:layout_width="match_parent"
         android:layout_height="38dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="90dp"
         android:background="@null"
         android:hint=""
         android:completionThreshold="2"

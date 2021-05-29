@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -43,7 +44,7 @@ public class RecommendTodayResultActivity extends AppCompatActivity {
     String category2;
     String category1;
 
-    ArrayList<HashMap<String, String>> recommendList;
+    ArrayList<HashMap<String, String>> searchList;
 
     LinearLayout resultView;
     Bitmap bitmap;
@@ -80,7 +81,7 @@ public class RecommendTodayResultActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Post> call, Response<Post> response) {
                 Log.i("mood Search","success");
-                recommendList = response.body().getRecommendList();
+                searchList = response.body().getRecommendList();
                 Load();
 
             }
@@ -96,13 +97,40 @@ public class RecommendTodayResultActivity extends AppCompatActivity {
 
     void Load(){
 
-        for(temp=0;temp<recommendList.size();temp++){
+        final int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
+        final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130, getResources().getDisplayMetrics());
+        final int textWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 210, getResources().getDisplayMetrics());
+        final int textHeight = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130, getResources().getDisplayMetrics());
+
+        for(temp=0;temp<searchList.size();temp++){
 
             perfumeImageBtn = new ImageButton(this);
-            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(350,300));
+            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(width,height));
             perfumeImageBtn.setId(temp);
             perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
             perfumeImageBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+
+            final int x = temp;
+            perfumeImageBtn.setOnClickListener(v -> {
+                Intent intent2 = new Intent(getApplicationContext(), PerfumeDataActivity.class);
+                intent2.putExtra("img",searchList.get(x).get("img"));
+                intent2.putExtra("kr_brand",searchList.get(x).get("kr_brand"));
+                intent2.putExtra("kr_name",searchList.get(x).get("kr_name"));
+                intent2.putExtra("en_name",searchList.get(x).get("en_name"));
+                intent2.putExtra("brand",searchList.get(x).get("brand"));
+                intent2.putExtra("likes",searchList.get(x).get("likes"));
+                intent2.putExtra("countingReview",searchList.get(x).get("countingReview"));
+                intent2.putExtra("avgStars",searchList.get(x).get("avgStars"));
+                intent2.putExtra("nick",nick);
+
+                //화면전환
+                intent2.putExtra("Activity","recommendToday");
+                intent2.putExtra("searchList",searchList);
+                intent2.putExtra("category1",category1);
+                intent2.putExtra("category2",category2);
+                startActivity(intent2);
+                finish();
+            });
 
             group = new LinearLayout(this);
             group.setOrientation(LinearLayout.HORIZONTAL);
@@ -113,7 +141,7 @@ public class RecommendTodayResultActivity extends AppCompatActivity {
             Thread mThread = new Thread(){
                 public void run(){
                     try{
-                        URL url = new URL(recommendList.get(temp).get("img"));
+                        URL url = new URL(searchList.get(temp).get("img"));
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         conn.setDoInput(true);
                         conn.connect();
@@ -139,9 +167,9 @@ public class RecommendTodayResultActivity extends AppCompatActivity {
 
             TextView perfumeInfo = new TextView(this);
             perfumeInfo.setGravity(Gravity.CENTER);
-            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(350,300));
+            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(textWidth,textHeight));
             //perfumeInfo.setTextColor(Color.WHITE);
-            perfumeInfo.setText("\n  "+ recommendList.get(temp).get("kr_name") + "\n  " + recommendList.get(temp).get("brand") + "\n  " +"\n  " +  "Likes : " + recommendList.get(temp).get("likes")+ "\n  "+ "리뷰수 : " + recommendList.get(temp).get("countingReview")+ "\n  "+ "평균별점 : " + recommendList.get(temp).get("avgStars")+ "\n");
+            perfumeInfo.setText("\n  "+ searchList.get(temp).get("kr_name") + "\n  " + searchList.get(temp).get("brand") + "\n  " +"\n  " +  "Likes : " + searchList.get(temp).get("likes")+ "\n  "+ "리뷰수 : " + searchList.get(temp).get("countingReview")+ "\n  "+ "평균별점 : " + searchList.get(temp).get("avgStars")+ "\n");
             //perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);
             group.setGravity(Gravity.CENTER);
 

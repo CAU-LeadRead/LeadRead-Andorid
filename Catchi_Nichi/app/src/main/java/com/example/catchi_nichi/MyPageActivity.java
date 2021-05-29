@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -165,10 +166,16 @@ public class MyPageActivity extends AppCompatActivity {
         resultView = findViewById(R.id.Info);
         resultView.setOrientation(LinearLayout.VERTICAL);
 
+        final int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
+        final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130, getResources().getDisplayMetrics());
+        final int textWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 210, getResources().getDisplayMetrics());
+        final int textHeight = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130, getResources().getDisplayMetrics());
+
+
             for(temp=0;temp<myReviewImgList.length;temp++){
 
                 perfumeImageBtn = new ImageButton(this);
-                perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(350,300));
+                perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(width,height));
                 perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 perfumeImageBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
@@ -196,6 +203,10 @@ public class MyPageActivity extends AppCompatActivity {
                     intent2.putExtra("review_mood",myReviewMood[x]);
                     intent2.putExtra("review_comment",myReviewComment[x]);
                     intent2.putExtra("review_id", myReviewIdList[x]);
+
+                    //화면전환
+                    intent2.putExtra("Activity","myPage");
+                    intent2.putExtra("searchList",searchList);
 
                     startActivity(intent2);
                     finish();
@@ -239,7 +250,7 @@ public class MyPageActivity extends AppCompatActivity {
 
             TextView perfumeInfo = new TextView(this);
             perfumeInfo.setGravity(Gravity.CENTER);
-            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(350,300));
+            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(textWidth,textHeight));
             perfumeInfo.setText("\n  " + myReviewKrNameList[temp] + "\n  " + myReviewBrandList[temp] +"\n"+"\n"+ "별점: "+myReviewStar[temp] );
             perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);
             group.setGravity(Gravity.CENTER);
@@ -326,6 +337,10 @@ public class MyPageActivity extends AppCompatActivity {
                 intent2.putExtra("countingReview",searchList.get(0).get("countingReview"));
                 intent2.putExtra("avgStars",searchList.get(0).get("avgStars"));
                 intent2.putExtra("nick",nick);
+
+                //화면전환
+                intent2.putExtra("Activity","myPage");
+                intent2.putExtra("searchList",searchList);
                 startActivity(intent2);
                 finish();
             });
@@ -341,6 +356,10 @@ public class MyPageActivity extends AppCompatActivity {
                 intent2.putExtra("countingReview",searchList.get(1).get("countingReview"));
                 intent2.putExtra("avgStars",searchList.get(1).get("avgStars"));
                 intent2.putExtra("nick",nick);
+
+                //화면전환
+                intent2.putExtra("Activity","myPage");
+                intent2.putExtra("searchList",searchList);
                 startActivity(intent2);
                 finish();
             });
@@ -356,6 +375,10 @@ public class MyPageActivity extends AppCompatActivity {
                 intent2.putExtra("countingReview",searchList.get(2).get("countingReview"));
                 intent2.putExtra("avgStars",searchList.get(2).get("avgStars"));
                 intent2.putExtra("nick",nick);
+
+                //화면전환
+                intent2.putExtra("Activity","myPage");
+                intent2.putExtra("searchList",searchList);
                 startActivity(intent2);
                 finish();
             });
@@ -371,6 +394,10 @@ public class MyPageActivity extends AppCompatActivity {
                 intent2.putExtra("countingReview",searchList.get(3).get("countingReview"));
                 intent2.putExtra("avgStars",searchList.get(3).get("avgStars"));
                 intent2.putExtra("nick",nick);
+
+                //화면전환
+                intent2.putExtra("Activity","myPage");
+                intent2.putExtra("searchList",searchList);
                 startActivity(intent2);
                 finish();
             });
@@ -386,6 +413,10 @@ public class MyPageActivity extends AppCompatActivity {
                 intent2.putExtra("countingReview",searchList.get(4).get("countingReview"));
                 intent2.putExtra("avgStars",searchList.get(4).get("avgStars"));
                 intent2.putExtra("nick",nick);
+
+                //화면전환
+                intent2.putExtra("Activity","myPage");
+                intent2.putExtra("searchList",searchList);
                 startActivity(intent2);
                 finish();
             });

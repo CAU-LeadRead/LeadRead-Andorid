@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -103,10 +104,16 @@ public class SmellNoteMainActivity extends AppCompatActivity {
 
     int temp;
     public void MySmellNote(){
+
+        final int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
+        final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130, getResources().getDisplayMetrics());
+        final int textWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 210, getResources().getDisplayMetrics());
+        final int textHeight = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130, getResources().getDisplayMetrics());
+
         for(temp=0;temp<smellNoteImgList.length;temp++){
 
             myNoteBtn = new ImageButton(this);
-            myNoteBtn.setLayoutParams(new LinearLayout.LayoutParams(350,300));
+            myNoteBtn.setLayoutParams(new LinearLayout.LayoutParams(width,height));
             myNoteBtn.setTag(temp);
             myNoteBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
             myNoteBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -161,7 +168,7 @@ public class SmellNoteMainActivity extends AppCompatActivity {
 
             TextView perfumeInfo = new TextView(this);
             perfumeInfo.setGravity(Gravity.CENTER);
-            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(350,300));
+            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(textWidth,textHeight));
             perfumeInfo.setText("\n  "+ smellNoteNameList[temp] + "\n  " + smellNoteBrandList[temp] + "\n  " + "\n  " + smellNoteDateList[temp] + "\n  ");
             perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);
             group.setGravity(Gravity.CENTER);

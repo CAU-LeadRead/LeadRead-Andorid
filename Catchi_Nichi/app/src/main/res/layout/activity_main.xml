@@ -35,10 +35,11 @@
 
     <Button
         android:id="@+id/todayBtn"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:backgroundTint="@color/darkgray"
         android:onClick="onClick"
+        android:layout_margin="16dp"
         android:text="오늘 내 기분에 맞는 향수 추천받기"
         android:textColor="@color/ivory"
         android:textStyle="bold"
@@ -52,10 +53,11 @@
 
     <Button
         android:id="@+id/similarBtn"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:backgroundTint="@color/darkgray"
         android:onClick="onClick"
+        android:layout_margin="16dp"
         android:text="내가 좋아하는 향수와 비슷한 향수 추천받기"
         android:textColor="@color/ivory"
         android:textStyle="bold"
@@ -161,7 +163,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.653" />
+        app:layout_constraintVertical_bias="0.635" />
 
     <ImageButton
         android:id="@+id/home_btn"
@@ -259,12 +261,13 @@
 
     <Button
         android:id="@+id/searchButton"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:backgroundTint="@color/pink"
         android:onClick="onClick"
         android:padding="0sp"
-        android:text="어떤 향수를 찾고 계신가요 ?                            "
+        android:layout_margin="16dp"
+        android:text="어떤 향수를 찾고 계신가요 ?                                 "
         android:textColor="@color/darkgray"
         android:src="@drawable/blank2"
         app:layout_constraintBottom_toBottomOf="parent"

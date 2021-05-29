@@ -19,6 +19,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -57,6 +59,14 @@ public class ConfirmReviewActivity extends AppCompatActivity {
     RatingBar star;
     RatingBar longevity;
 
+    String activity;
+    String enterSearch;
+    int getCount;
+    String[] items;
+    ArrayList<HashMap<String, String>> searchList;
+    String category1;
+    String category2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +96,18 @@ public class ConfirmReviewActivity extends AppCompatActivity {
         review_comment = intent.getStringExtra("review_comment");
         review_id = intent.getIntExtra("review_id",0);
 
+        //화면전환
+        activity = intent.getStringExtra("Activity");
+        searchList = (ArrayList<HashMap<String, String>>) intent.getSerializableExtra("searchList");
+        try{
+            enterSearch = intent.getStringExtra("enterSearch");
+            getCount = intent.getIntExtra("getCount", 0);
+            items = intent.getStringArrayExtra("autoSearchItem");
+            category1 =intent.getStringExtra("category1");
+            category2 =intent.getStringExtra("category2");}
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         perfumePic = findViewById(R.id.imageView);
         perfumeInfo = findViewById(R.id.imageText);
@@ -139,18 +161,43 @@ public class ConfirmReviewActivity extends AppCompatActivity {
         switch (v.getId()) {
 
             case R.id.ok_btn:
-                Intent intent2 = new Intent(getApplicationContext(), PerfumeDataActivity.class);
-                intent2.putExtra("nick", nick);
-                intent2.putExtra("img", img);
-                intent2.putExtra("kr_name", kr_name);
-                intent2.putExtra("en_name", en_name);
-                intent2.putExtra("brand", brand);
-                intent2.putExtra("kr_brand", kr_brand);
-                intent2.putExtra("likes", likes);
-                intent2.putExtra("countingReview", countingReview);
-                intent2.putExtra("avgStars", avgStars);
-                startActivity(intent2);
-                finish();
+
+                if(activity.equals("myPage")){
+                    Intent intent8 = new Intent(getApplicationContext(), MyPageActivity.class);
+                    intent8.putExtra("nick", nick);
+                    startActivity(intent8);
+                    finish();
+                }
+                else{
+                    Intent intent2 = new Intent(getApplicationContext(), PerfumeDataActivity.class);
+                    intent2.putExtra("nick", nick);
+                    intent2.putExtra("img", img);
+                    intent2.putExtra("kr_name", kr_name);
+                    intent2.putExtra("en_name", en_name);
+                    intent2.putExtra("brand", brand);
+                    intent2.putExtra("kr_brand", kr_brand);
+                    intent2.putExtra("likes", likes);
+                    intent2.putExtra("countingReview", countingReview);
+                    intent2.putExtra("avgStars", avgStars);
+
+                    //화면전환
+                    //activity 정보
+                    intent2.putExtra("Activity",activity);
+                    intent2.putExtra("searchList",searchList);
+
+                    try{
+                        intent2.putExtra("autoSearchItem",items);
+                        intent2.putExtra("getCount",getCount);
+                        intent2.putExtra("enterSearch",enterSearch);
+                        intent2.putExtra("category1",category1);
+                        intent2.putExtra("category2",category2);}
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                    startActivity(intent2);
+                    finish();
+                }
                 break;
 
             case R.id.modify_Btn:
@@ -177,6 +224,25 @@ public class ConfirmReviewActivity extends AppCompatActivity {
                     intent.putExtra("review_mood",review_mood);
                     intent.putExtra("review_comment",review_comment);
                     intent.putExtra("review_id",review_id);
+
+                    //화면전환
+                    //activity 정보
+                    intent.putExtra("Activity",activity);
+                    intent.putExtra("searchList",searchList);
+
+                    try{
+                        intent.putExtra("autoSearchItem",items);
+                        intent.putExtra("getCount",getCount);
+                        intent.putExtra("enterSearch",enterSearch);
+                        intent.putExtra("category1",category1);
+                        intent.putExtra("category2",category2);}
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                    startActivity(intent);
+                    finish();
+
 
                     startActivity(intent);
                     finish();

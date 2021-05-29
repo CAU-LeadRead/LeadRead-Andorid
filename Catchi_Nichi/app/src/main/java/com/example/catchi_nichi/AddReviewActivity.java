@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -54,7 +55,7 @@ public class AddReviewActivity extends AppCompatActivity {
     Bitmap bitmap;
 
     Spinner spinner;
-    String[] items={"세련된","관능적","청순한","우아한","명량한","사랑스러운","지적인","포근한"};
+    String[] item={"세련된","관능적","청순한","우아한","명량한","사랑스러운","지적인","포근한"};
     int selectedItem=-1;
 
     RatingBar starRatingbar;
@@ -67,6 +68,15 @@ public class AddReviewActivity extends AppCompatActivity {
     TextView perfumeText;
     EditText userWrite;
     TextView writerName;
+
+    String activity;
+    String enterSearch;
+    int getCount;
+    String[] items;
+    ArrayList<HashMap<String, String>> searchList;
+
+    String category1;
+    String category2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +110,19 @@ public class AddReviewActivity extends AppCompatActivity {
         writerName = findViewById(R.id.writerName);
         writerName.setText(nick);
 
+        //화면전환
+        activity = intent.getStringExtra("Activity");
+        searchList = (ArrayList<HashMap<String, String>>) intent.getSerializableExtra("searchList");
+        try{
+            enterSearch = intent.getStringExtra("enterSearch");
+            getCount = intent.getIntExtra("getCount", 0);
+            items = intent.getStringArrayExtra("autoSearchItem");
+            category1 =intent.getStringExtra("category1");
+            category2 =intent.getStringExtra("category2");}
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
         Spinner();
 
         starRatingbar = findViewById(R.id.starRating);
@@ -123,7 +146,7 @@ public class AddReviewActivity extends AppCompatActivity {
 
     public void Spinner() {
         spinner = findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
@@ -188,6 +211,22 @@ public class AddReviewActivity extends AppCompatActivity {
                 intent2.putExtra("countingReview",countingReview);
                 intent2.putExtra("avgStars",avgStars);
                 intent2.putExtra("nick",nick);
+
+                //화면전환
+                intent2.putExtra("Activity",activity);
+                intent2.putExtra("searchList",searchList);
+
+                try{
+                    intent2.putExtra("autoSearchItem",items);
+                    intent2.putExtra("getCount",getCount);
+                    intent2.putExtra("enterSearch",enterSearch);
+                    intent2.putExtra("category1",category1);
+                    intent2.putExtra("category2",category2);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 startActivity(intent2);
                 finish();
                 break;
@@ -200,7 +239,7 @@ public class AddReviewActivity extends AppCompatActivity {
                 review.put("en_name",en_name);
                 review.put("kr_brand",kr_brand);
                 review.put("kr_name",kr_name);
-                review.put("mood",items[selectedItem]);
+                review.put("mood",item[selectedItem]);
                 review.put("stars",stars);
                 review.put("longevity",longevity);
                 review.put("comment",userWrite.getText());
@@ -222,6 +261,21 @@ public class AddReviewActivity extends AppCompatActivity {
                                        intent3.putExtra("countingReview",countingReview);
                                        intent3.putExtra("avgStars",avgStars);
                                        intent3.putExtra("nick",nick);
+
+                                       //화면전환
+                                       intent3.putExtra("Activity",activity);
+                                       intent3.putExtra("searchList",searchList);
+
+                                       try{
+                                           intent3.putExtra("autoSearchItem",items);
+                                           intent3.putExtra("getCount",getCount);
+                                           intent3.putExtra("enterSearch",enterSearch);
+                                           intent3.putExtra("category1",category1);
+                                           intent3.putExtra("category2",category2);}
+                                       catch (Exception e){
+                                           e.printStackTrace();
+                                       }
+
                                        startActivity(intent3);
                                        finish();
 

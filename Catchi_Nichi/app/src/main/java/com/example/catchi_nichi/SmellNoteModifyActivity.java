@@ -143,8 +143,15 @@ public class SmellNoteModifyActivity extends AppCompatActivity {
                     public void onResponse(Call<Post> call, Response<Post> response) {
                         Log.i("updatedSmellNote","success");
                         Log.i("updatedSmellNote",response.body().getMessage());
-                        Intent intent2 = new Intent(getApplicationContext(), SmellNoteMainActivity.class);
+                        Intent intent2 = new Intent(getApplicationContext(), SmellNoteConfineActivity.class);
                         intent2.putExtra("nick", nick);
+                        intent2.putExtra("brand",brand);
+                        intent2.putExtra("img",img);
+                        intent2.putExtra("name",name);
+                        intent2.putExtra("date",date);
+                        intent2.putExtra("comment",userWrite.getText()+"");
+                        intent2.putExtra("id",id);
+
                         startActivity(intent2);
                         finish();
                     }

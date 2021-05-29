@@ -143,7 +143,7 @@
         app:layout_constraintVertical_bias="0.128" />
 
     <HorizontalScrollView
-        android:layout_width="370dp"
+        android:layout_width="match_parent"
         android:layout_height="130dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -234,11 +234,11 @@
         android:textSize="13sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.672" />
+        app:layout_constraintVertical_bias="0.64" />
 
     <TextView
         android:id="@+id/reviewNotice"
@@ -257,8 +257,8 @@
 
     <ScrollView
         android:id="@+id/InfoView"
-        android:layout_width="370dp"
-        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
         android:layout_margin="13dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
@@ -266,11 +266,11 @@
         android:scrollbarThumbVertical="@color/darkgray"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintHorizontal_bias="0.451"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.387">
+        app:layout_constraintVertical_bias="0.384">
 
         <LinearLayout
             android:id="@+id/Info"

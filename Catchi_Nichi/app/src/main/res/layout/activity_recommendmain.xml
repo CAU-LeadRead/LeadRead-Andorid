@@ -110,10 +110,11 @@
 
     <Button
         android:id="@+id/todayBtn"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:backgroundTint="@color/darkgray"
         android:onClick="onClick"
+        android:layout_margin="16dp"
         android:text="오늘 내 기분에 맞는 향수 추천받기"
         android:textColor="@color/ivory"
         android:textStyle="bold"
@@ -126,10 +127,11 @@
 
     <Button
         android:id="@+id/similarBtn"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:backgroundTint="@color/darkgray"
         android:onClick="onClick"
+        android:layout_margin="16dp"
         android:text="내가 좋아하는 향수와 비슷한 향수 추천받기"
         android:textColor="@color/ivory"
         android:textStyle="bold"

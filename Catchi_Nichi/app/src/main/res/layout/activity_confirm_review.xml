@@ -15,8 +15,8 @@
         android:layout_width="380dp"
         android:layout_height="265dp"
         android:layout_margin="13dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:scrollbarSize="5dp"
         android:scrollbarThumbVertical="@color/darkgray"
         android:scrollbars="vertical"
@@ -29,9 +29,11 @@
 
         <LinearLayout
             android:id="@+id/reviewInfo"
-            android:layout_width="380dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_gravity="center"
             android:background="@color/ivory"
             android:orientation="vertical">
@@ -141,7 +143,8 @@
 
         <TextView
             android:id="@+id/moodText"
-            android:layout_width="380dp"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="30dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
@@ -158,7 +161,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="30dp"
                 android:text="총 별점"
                 android:textSize="15dp"
                 android:textStyle="bold" />
@@ -167,6 +170,7 @@
                 android:id="@+id/starRating"
                 android:layout_width="240dp"
                 android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
                 android:progressTint="@color/pink" />
 
         </LinearLayout>
@@ -180,7 +184,7 @@
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="30dp"
                 android:text="지속성"
                 android:textSize="15dp"
                 android:textStyle="bold" />
@@ -189,6 +193,7 @@
                 android:id="@+id/longevityRating"
                 android:layout_width="240dp"
                 android:layout_height="50dp"
+                android:layout_marginLeft="30dp"
                 android:progressTint="@color/pink" />
 
         </LinearLayout>

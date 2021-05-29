@@ -139,7 +139,7 @@
     <ScrollView
         android:id="@+id/InfoView"
         android:layout_width="380dp"
-        android:layout_height="420dp"
+        android:layout_height="350dp"
         android:layout_margin="13dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"

@@ -15,6 +15,7 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -66,11 +67,13 @@ public class searchResultActivity extends AppCompatActivity {
     ArrayList<HashMap<String, String>> searchList;
     String enterSearch;
     int getCount;
+    String[] items;
     EditText shText;
     String nick;
     LinearLayout resultView;
     LinearLayout group;
-    String[] items;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,10 +109,15 @@ public class searchResultActivity extends AppCompatActivity {
         resultView = findViewById(R.id.Info);
         resultView.setOrientation(LinearLayout.VERTICAL);
 
+        final int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
+        final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130, getResources().getDisplayMetrics());
+        final int textWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 210, getResources().getDisplayMetrics());
+        final int textHeight = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130, getResources().getDisplayMetrics());
+
         for (temp = 0; temp < searchList.size(); temp++) {
 
             perfumeImageBtn = new ImageButton(this);
-            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(350, 300));
+            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(width, height));
             perfumeImageBtn.setId(temp);
             perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
             perfumeImageBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -127,6 +135,19 @@ public class searchResultActivity extends AppCompatActivity {
                 intent2.putExtra("countingReview", searchList.get(x).get("countingReview"));
                 intent2.putExtra("avgStars", searchList.get(x).get("avgStars"));
                 intent2.putExtra("nick", nick);
+
+                //화면전환
+                intent2.putExtra("Activity","search");
+                intent2.putExtra("searchList",searchList);
+
+                try{
+                    intent2.putExtra("autoSearchItem",items);
+                    intent2.putExtra("getCount",getCount);
+                    intent2.putExtra("enterSearch",enterSearch); }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 startActivity(intent2);
                 finish();
             });
@@ -166,7 +187,7 @@ public class searchResultActivity extends AppCompatActivity {
 
             TextView perfumeInfo = new TextView(this);
             perfumeInfo.setGravity(Gravity.CENTER);
-            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(350, 300));
+            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(textWidth, textHeight));
             perfumeInfo.setText("\n  " + searchList.get(temp).get("kr_name") + "\n  " + searchList.get(temp).get("brand") + "\n  " + "Likes : " + searchList.get(temp).get("likes") + "\n  " + "리뷰수 : " + searchList.get(temp).get("countingReview") + "\n  " + "평균별점 : " + searchList.get(temp).get("avgStars") + "\n");
             //perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);
             group.setGravity(Gravity.CENTER);

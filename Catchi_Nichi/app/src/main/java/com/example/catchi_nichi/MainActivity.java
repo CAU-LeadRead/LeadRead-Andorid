@@ -158,6 +158,10 @@ public class MainActivity extends AppCompatActivity {
                 intent2.putExtra("countingReview",searchList.get(0).get("countingReview"));
                 intent2.putExtra("avgStars",searchList.get(0).get("avgStars"));
                 intent2.putExtra("nick",nickName);
+
+                //화면전환
+                intent2.putExtra("Activity","main");
+                intent2.putExtra("searchList",searchList);
                 startActivity(intent2);
                 finish();
             });
@@ -173,6 +177,10 @@ public class MainActivity extends AppCompatActivity {
                 intent2.putExtra("countingReview",searchList.get(1).get("countingReview"));
                 intent2.putExtra("avgStars",searchList.get(1).get("avgStars"));
                 intent2.putExtra("nick",nickName);
+
+                //화면전환
+                intent2.putExtra("Activity","main");
+                intent2.putExtra("searchList",searchList);
                 startActivity(intent2);
                 finish();
             });
@@ -188,6 +196,10 @@ public class MainActivity extends AppCompatActivity {
                intent2.putExtra("countingReview",searchList.get(2).get("countingReview"));
                intent2.putExtra("avgStars",searchList.get(2).get("avgStars"));
                intent2.putExtra("nick",nickName);
+
+                //화면전환
+                intent2.putExtra("Activity","main");
+                intent2.putExtra("searchList",searchList);
                startActivity(intent2);
                finish();
             });
@@ -203,6 +215,10 @@ public class MainActivity extends AppCompatActivity {
                 intent2.putExtra("countingReview",searchList.get(3).get("countingReview"));
                 intent2.putExtra("avgStars",searchList.get(3).get("avgStars"));
                 intent2.putExtra("nick",nickName);
+
+                //화면전환
+                intent2.putExtra("Activity","main");
+                intent2.putExtra("searchList",searchList);
                 startActivity(intent2);
                 finish();
             });
@@ -218,6 +234,10 @@ public class MainActivity extends AppCompatActivity {
                 intent2.putExtra("countingReview",searchList.get(4).get("countingReview"));
                 intent2.putExtra("avgStars",searchList.get(4).get("avgStars"));
                 intent2.putExtra("nick",nickName);
+
+                //화면전환
+                intent2.putExtra("Activity","main");
+                intent2.putExtra("searchList",searchList);
                 startActivity(intent2);
                 finish();
             });

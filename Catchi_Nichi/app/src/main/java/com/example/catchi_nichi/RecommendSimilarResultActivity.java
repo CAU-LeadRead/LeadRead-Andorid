@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -75,10 +76,15 @@ public class RecommendSimilarResultActivity extends AppCompatActivity {
         resultText.setTypeface(Typeface.DEFAULT_BOLD);
         resultText.setText(searchList.size()+" 개의 향수가 검색되었습니다.");
 
+        final int width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getResources().getDisplayMetrics());
+        final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130, getResources().getDisplayMetrics());
+        final int textWidth = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 210, getResources().getDisplayMetrics());
+        final int textHeight = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 130, getResources().getDisplayMetrics());
+
         for(temp=0;temp<searchList.size();temp++){
 
             perfumeImageBtn = new ImageButton(this);
-            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(350,300));
+            perfumeImageBtn.setLayoutParams(new LinearLayout.LayoutParams(width,height));
             perfumeImageBtn.setId(temp);
             perfumeImageBtn.setBackgroundColor(Color.parseColor("#FFFFFF"));
             perfumeImageBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -96,6 +102,10 @@ public class RecommendSimilarResultActivity extends AppCompatActivity {
                 intent2.putExtra("countingReview",searchList.get(x).get("countingReview"));
                 intent2.putExtra("avgStars",searchList.get(x).get("avgStars"));
                 intent2.putExtra("nick",nick);
+
+                //화면전환
+                intent2.putExtra("Activity","recommendSimilar");
+                intent2.putExtra("searchList",searchList);
                 startActivity(intent2);
                 finish();
             });
@@ -135,9 +145,9 @@ public class RecommendSimilarResultActivity extends AppCompatActivity {
 
             TextView perfumeInfo = new TextView(this);
             perfumeInfo.setGravity(Gravity.CENTER);
-            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(350,300));
+            perfumeInfo.setLayoutParams(new LinearLayout.LayoutParams(textWidth,textHeight));
             perfumeInfo.setTextColor(Color.WHITE);
-            perfumeInfo.setText("\n  "+ searchList.get(temp).get("en_name") + "\n  " + searchList.get(temp).get("brand") + "\n  " );
+            perfumeInfo.setText("\n  "+ searchList.get(temp).get("kr_name") + "\n  " + searchList.get(temp).get("brand") + "\n  " );
             //perfumeInfo.setTypeface(Typeface.DEFAULT_BOLD);
             group.setGravity(Gravity.CENTER);
 

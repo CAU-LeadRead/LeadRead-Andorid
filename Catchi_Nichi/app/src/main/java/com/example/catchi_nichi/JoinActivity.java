@@ -204,7 +204,7 @@ public class JoinActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         nick.putExtra("age", "");
                     }
-
+                    nick.putExtra("join","plain");
                     startActivity(nick);
                     finish();
                 }

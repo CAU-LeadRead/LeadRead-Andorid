@@ -28,7 +28,7 @@ public interface RetrofitAPI {
 
     @FormUrlEncoded
     @POST("user/kakao")
-    Call <Post> userInfoAPI(@FieldMap HashMap<String, Object> param);
+    Call <Post> kakaosingupAPI(@FieldMap HashMap<String, Object> param);
 
     @FormUrlEncoded
     @POST("user/signup")
@@ -46,6 +46,10 @@ public interface RetrofitAPI {
     @POST("user/signin")
     Call <Post>  LoginAPI(@FieldMap HashMap<String, Object> param);
 
+    @FormUrlEncoded
+    @POST("user/nick")
+    Call <Post>  searchNickAPI(@FieldMap HashMap<String, Object> param);
+
     @GET("search")
     Call <Post>  searchAPI(@Query("searchText") String searchText, @Query("order") String order, @Query("limit") Integer limit, @Query("offset" ) Integer offset , @Query("category" ) Integer category);
 
@@ -53,9 +57,9 @@ public interface RetrofitAPI {
     @POST("user/checkNick")
     Call <Post>  checkNickAPI(@FieldMap HashMap<String, Object> param);
 
-    @FormUrlEncoded
-    @POST("search/picture/base64")
-    Call <Post>  searchPicAPI (@FieldMap HashMap<String, Object> param);
+    @Multipart
+    @POST("search/picture")
+    Call<Post> searchPicAPI(@Part MultipartBody.Part file);
 
     @FormUrlEncoded
     @POST("review/addReview")

@@ -93,11 +93,12 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="390dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/white"
         android:padding="0sp"
-
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:scaleType="fitCenter"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toBottomOf="parent"

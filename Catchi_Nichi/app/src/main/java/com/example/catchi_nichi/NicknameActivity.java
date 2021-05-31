@@ -34,7 +34,8 @@ public class NicknameActivity extends AppCompatActivity {
     public static final RetrofitAPI apiService = retrofit.create(RetrofitAPI.class);
 
     //수신데이터
-    String email, phone, password, gender, age;
+    String email, phone, password, gender, snsId,join;
+    Integer age;
     EditText shText;
 
     @Override
@@ -46,21 +47,23 @@ public class NicknameActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
+        join = intent.getStringExtra("join");
         email = intent.getStringExtra("email");
-        phone = intent.getStringExtra("phone");
-        password = intent.getStringExtra("password");
+        try{
+            phone = intent.getStringExtra("phone");}
+        catch(Exception ignored){}
+        try{
+            password = intent.getStringExtra("password");}
+        catch(Exception ignored){}
+        try{
+            snsId = intent.getStringExtra("snsId");}
+        catch(Exception ignored){}
         try{
         gender = intent.getStringExtra("gender");}
         catch(Exception ignored){}
         try{
-        age = intent.getStringExtra("age");}
+        age = intent.getIntExtra("age",0);}
         catch(Exception ignored){}
-
-        Log.i("Nickname(email)", email);
-        Log.i("Nickname(phone)", phone);
-        Log.i("Nickname(pwd)", password);
-        Log.i("Nickname(gender)", gender);
-        Log.i("Nickname(age)", age);
     }
 
     //buttonListener 구현
@@ -71,55 +74,110 @@ public class NicknameActivity extends AppCompatActivity {
 
             case R.id.nicknameconfirm:
 
-                HashMap<String, Object> nickName = new HashMap<>();
-                nickName.put("nick",nick.getText().toString());
-                nickName.put("email",email);
-                nickName.put("age",age);
-                nickName.put("gender",gender);
-                nickName.put("phone",phone);
-                nickName.put("password",password);
+                if(join.equals("plain")){
+                    HashMap<String, Object> nickName = new HashMap<>();
+                    nickName.put("nick",nick.getText().toString());
+                    nickName.put("email",email);
+                    nickName.put("age",age);
+                    nickName.put("gender",gender);
+                    nickName.put("phone",phone);
+                    nickName.put("password",password);
 
-                HashMap<String,Object> ckNick = new HashMap<>();
-                ckNick.put("nick",nick.getText().toString());
-                Call<Post> check_nick = apiService.checkNickAPI(ckNick);
-                Call<Post> nick_Name = apiService.signupAPI(nickName);
+                    HashMap<String,Object> ckNick = new HashMap<>();
+                    ckNick.put("nick",nick.getText().toString());
+                    Call<Post> check_nick = apiService.checkNickAPI(ckNick);
+                    Call<Post> nick_Name = apiService.signupAPI(nickName);
 
-                check_nick.enqueue(new Callback<Post>() {
-                    @Override
-                    public void onResponse(Call<Post> call, Response<Post> response) {
-                        if (response.body().getSuccess()){
-                            Log.i("닉네임중복", "ok");
+                    check_nick.enqueue(new Callback<Post>() {
+                        @Override
+                        public void onResponse(Call<Post> call, Response<Post> response) {
+                            if (response.body().getSuccess()){
+                                Log.i("닉네임중복", "ok");
 
-                            nick_Name.enqueue(new Callback<Post>() {
-                                @Override
-                                public void onResponse(Call<Post> call, Response<Post> response) {
-                                    Log.i("회원가입", "success");
-                                    Log.i("회원가입", response.toString());
-                                    Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다 :)", Toast.LENGTH_SHORT).show();
-                                    Intent usedPerfume = new Intent(getApplicationContext(), UsedPerfumeActivity.class);
-                                    usedPerfume.putExtra("nickname",nick.getText().toString());
-                                    startActivity(usedPerfume);
-                                    finish();
-                                }
+                                nick_Name.enqueue(new Callback<Post>() {
+                                    @Override
+                                    public void onResponse(Call<Post> call, Response<Post> response) {
+                                        Log.i("회원가입", "success");
+                                        Log.i("회원가입", response.toString());
+                                        Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다 :)", Toast.LENGTH_SHORT).show();
+                                        Intent usedPerfume = new Intent(getApplicationContext(), UsedPerfumeActivity.class);
+                                        usedPerfume.putExtra("nickname",nick.getText().toString());
+                                        startActivity(usedPerfume);
+                                        finish();
+                                    }
 
-                                @Override
-                                public void onFailure(Call<Post> call, Throwable t) {
+                                    @Override
+                                    public void onFailure(Call<Post> call, Throwable t) {
 
-                                }
-                            });
+                                    }
+                                });
+
+                            }
+                            else{
+                                Log.i("닉네임중복", "fail");
+                                Toast.makeText(getApplicationContext(), "동일한 닉네임이 존재합니다.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<Post> call, Throwable t) {
 
                         }
-                        else{
-                            Log.i("닉네임중복", "fail");
-                            Toast.makeText(getApplicationContext(), "동일한 닉네임이 존재합니다.", Toast.LENGTH_SHORT).show();
+                    });
+
+                }
+                else if(join.equals("kakao")){
+                    HashMap<String, Object> nickName = new HashMap<>();
+                    nickName.put("nick",nick.getText().toString());
+                    nickName.put("email",email);
+                    nickName.put("age",age);
+                    nickName.put("gender",gender);
+                    nickName.put("snsId",snsId);
+
+                    HashMap<String,Object> ckNick = new HashMap<>();
+                    ckNick.put("nick",nick.getText().toString());
+                    Call<Post> check_nick = apiService.checkNickAPI(ckNick);
+                    Call<Post> nick_Name = apiService.kakaosingupAPI(nickName);
+
+                    check_nick.enqueue(new Callback<Post>() {
+                        @Override
+                        public void onResponse(Call<Post> call, Response<Post> response) {
+                            if (response.body().getSuccess()){
+                                Log.i("닉네임중복", "ok");
+
+                                nick_Name.enqueue(new Callback<Post>() {
+                                    @Override
+                                    public void onResponse(Call<Post> call, Response<Post> response) {
+                                        Log.i("회원가입", "success");
+                                        Log.i("회원가입", response.toString());
+                                        Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다 :)", Toast.LENGTH_SHORT).show();
+                                        Intent usedPerfume = new Intent(getApplicationContext(), UsedPerfumeActivity.class);
+                                        usedPerfume.putExtra("nickname",nick.getText().toString());
+                                        startActivity(usedPerfume);
+                                        finish();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<Post> call, Throwable t) {
+
+                                    }
+                                });
+
+                            }
+                            else{
+                                Log.i("닉네임중복", "fail");
+                                Toast.makeText(getApplicationContext(), "동일한 닉네임이 존재합니다.", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<Post> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<Post> call, Throwable t) {
 
-                    }
-                });
+                        }
+                    });
+
+                }
+                break;
 
     }
 }

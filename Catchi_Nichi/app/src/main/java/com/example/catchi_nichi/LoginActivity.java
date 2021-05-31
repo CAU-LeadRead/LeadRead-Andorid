@@ -138,62 +138,76 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onSessionOpened() {
             UserManagement.getInstance().me(new MeV2ResponseCallback() {
+
                 @Override
                 public void onFailure(ErrorResult errorResult) {
                     int result = errorResult.getErrorCode();
 
-                    if(result == ApiErrorCode.CLIENT_ERROR_CODE) {
+                    if (result == ApiErrorCode.CLIENT_ERROR_CODE) {
                         Toast.makeText(getApplicationContext(), "네트워크 연결이 불안정합니다. 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
-                        Toast.makeText(getApplicationContext(),"로그인 도중 오류가 발생했습니다: "+errorResult.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "로그인 도중 오류가 발생했습니다: " + errorResult.getErrorMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onSessionClosed(ErrorResult errorResult) {
-                    Toast.makeText(getApplicationContext(),"세션이 닫혔습니다. 다시 시도해 주세요: "+errorResult.getErrorMessage(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "세션이 닫혔습니다. 다시 시도해 주세요: " + errorResult.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onSuccess(MeV2Response result) {
+                    HashMap<String, Object> userInfo = new HashMap<>();
+                    userInfo.put("email", result.getKakaoAccount().getEmail());
 
-                    if(getInfo(result)){
-
-                        Call<Post> Info = apiService.userInfoAPI(userInfo);
-                        Info.enqueue(new Callback<Post>() {
-                            @Override
-                            public void onResponse(Call<Post> call, Response<Post> response) {
-                                if (response.isSuccessful() && response.body().getSuccess() == true){
-                                    Log.i("response","success");
+                    Call<Post> searchNick = apiService.searchNickAPI(userInfo);
+                    searchNick.enqueue(new Callback<Post>() {
+                        @Override
+                        public void onResponse(Call<Post> call, Response<Post> response) {
+                            if (response.body().getSuccess()) {
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                intent.putExtra("nick", response.body().getNick());
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                if (getInfo(result)) {
+                                    Log.i("response", "success");
                                     Intent intent = new Intent(getApplicationContext(), NicknameActivity.class);
-                                    intent.putExtra("email", email.getText().toString());
+                                    intent.putExtra("email", emails);
+                                    intent.putExtra("snsId", snsId);
+                                    intent.putExtra("kakaoage", age);
+                                    intent.putExtra("gender", gender);
+                                    intent.putExtra("join", "kakao");
                                     startActivity(intent);
                                     finish();
                                 }
                             }
+                        }
 
-                            @Override
-                            public void onFailure(Call<Post> call, Throwable t) {
-                                Log.i("response","failure");
-                            }
-                        });
+                        @Override
+                        public void onFailure(Call<Post> call, Throwable t) {
+                            Log.i("nickSearch", "fail");
+                        }
+                    });
 
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), "가입하지 않은 아이디이거나 비밀번호가 일치하지 않습니다. ", Toast.LENGTH_SHORT).show();
-                    }
                 }
+
             });
+
         }
 
         @Override
         public void onSessionOpenFailed(KakaoException e) {
-           // Toast.makeText(getApplicationContext(), "로그인 도중 오류가 발생했습니다. 인터넷 연결을 확인해주세요: "+e.toString(), Toast.LENGTH_SHORT).show();
+           Toast.makeText(getApplicationContext(), "카카오 로그인이 종료되었습니다.", Toast.LENGTH_SHORT).show();
         }
     }
 
     HashMap<String, Object> userInfo = new HashMap<>();
+    String snsId;
+    String emails;
+    int age;
+    String gender;
     private boolean getInfo(MeV2Response result) {
         PackageInfo packageInfo = null;
 
@@ -207,14 +221,14 @@ public class LoginActivity extends AppCompatActivity {
 
             for (Signature signature : packageInfo.signatures) {
 
-                String snsId = String.valueOf(result.getId());
-                String email = String.valueOf(result.getKakaoAccount().getEmail());
+                snsId = String.valueOf(result.getId());
+                emails = String.valueOf(result.getKakaoAccount().getEmail());
                 String[] low = result.getKakaoAccount().getAgeRange().getValue().split("~");
-                int age = (Integer.parseInt(low[0]) + Integer.parseInt(low[1])) / 2;
-                String gender = String.valueOf(result.getKakaoAccount().getGender());
+                age = (Integer.parseInt(low[0]) + Integer.parseInt(low[1])) / 2;
+                gender = String.valueOf(result.getKakaoAccount().getGender());
 
                 userInfo.put("snsId", snsId);
-                userInfo.put("email", email);
+                userInfo.put("email", emails);
                 userInfo.put("age", age);
                 userInfo.put("gender", gender);
             }

@@ -14,9 +14,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.kakao.auth.Session;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +44,7 @@ public class MyPageActivity extends AppCompatActivity {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     public static final RetrofitAPI apiService = retrofit.create(RetrofitAPI.class);
+
 
     String nick;
     TextView myPageText;
@@ -467,9 +473,22 @@ public class MyPageActivity extends AppCompatActivity {
                 break;
 
             case R.id.logout:
-                Intent intent8 = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent8);
-                finish();
+                Toast.makeText(getApplicationContext(), "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                try{
+                    UserManagement.getInstance().requestLogout(new LogoutResponseCallback() {
+                        @Override
+                        public void onCompleteLogout() {
+                            Intent intent8 = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent8);
+                            finish();
+                        }
+                    });
+                }catch (Exception e){
+                    Intent intent8 = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent8);
+                    finish();
+                }
+
                 break;
 
         }

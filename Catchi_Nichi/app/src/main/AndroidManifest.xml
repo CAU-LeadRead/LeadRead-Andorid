@@ -12,6 +12,7 @@
     <uses-feature android:name="android.hardware.camera" android:required="true"/><!--카메라 기능 사용-->
 
 
+
     <application
 
         android:name=".App"
@@ -68,6 +69,15 @@
         <activity android:name=".RecommendWoody2Activity" android:windowSoftInputMode="adjustPan" ></activity>
         <activity android:name=".MyPageActivity" android:windowSoftInputMode="adjustPan" ></activity>
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.catchi_nichi"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"></meta-data>
+        </provider>
 
     </application>
 

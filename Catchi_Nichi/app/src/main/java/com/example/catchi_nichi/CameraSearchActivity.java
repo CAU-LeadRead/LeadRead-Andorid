@@ -83,6 +83,8 @@ public class CameraSearchActivity extends AppCompatActivity implements View.OnCl
     private static final int PICK_FROM_ALBUM = 1;
     private static final int PICK_FROM_CAMERA = 2;
     private File tempFile;
+    Uri photoURI;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +157,7 @@ public class CameraSearchActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode != Activity.RESULT_OK) {
+        /*if (resultCode != Activity.RESULT_OK) {
             Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show();
 
             if (tempFile != null) {
@@ -168,10 +170,9 @@ public class CameraSearchActivity extends AppCompatActivity implements View.OnCl
             }
 
             return;
-        }
+        } */
 
         if (requestCode == PICK_FROM_ALBUM) {
-
             Uri photoUri = data.getData();
             Log.d(TAG, "PICK_FROM_ALBUM photoUri : " + photoUri);
             Cursor cursor = null;
@@ -195,13 +196,32 @@ public class CameraSearchActivity extends AppCompatActivity implements View.OnCl
 
         }
         else if (requestCode == PICK_FROM_CAMERA) {
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            if (bitmap != null) {
-                ImageView imageView = findViewById(R.id.imageView);
-                imageView.setImageBitmap(bitmap);
-                uploadPhoto(bitmap);
-            }
+            Log.i("startActivityForResult","success");
 
+            /*
+            Bitmap bitmap = BitmapFactory.decodeFile(currentPhotoPath);
+            Log.d(TAG, "PICK_FROM_CAMERA photoUri : " + currentPhotoPath);
+
+
+            ImageView imageView = findViewById(R.id.imageView);
+            imageView.setImageBitmap(bitmap);
+
+
+            //resize
+            int resizeWidth = 400;
+            double aspectRatio = (double) bitmap.getHeight() / (double) bitmap.getWidth();
+            int targetHeight = (int) (resizeWidth * aspectRatio);
+            Bitmap result = Bitmap.createScaledBitmap(bitmap,  resizeWidth, targetHeight, false);
+
+            uploadPhoto(result);
+
+            /**
+             *  tempFile 사용 후 null 처리를 해줘야 합니다.
+             *  (resultCode != RESULT_OK) 일 때 tempFile 을 삭제하기 때문에
+             *  기존에 데이터가 남아 있게 되면 원치 않은 삭제가 이뤄집니다.
+             */
+            tempFile = null;
+            //setImage(); */
         }
     }
 
@@ -220,9 +240,42 @@ public class CameraSearchActivity extends AppCompatActivity implements View.OnCl
      */
     private void takePhoto() {
 
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, PICK_FROM_CAMERA);
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            tempFile = null;
+            try {
+                tempFile = createImageFile();
+                Log.i("tempFile",tempFile.getName());
+            } catch (IOException ex) {
+                Log.i("tempFile","fail");
+            }
+            if (tempFile != null) {
+                photoURI = FileProvider.getUriForFile(this, getPackageName(), tempFile);
+                Log.i("photoURI",photoURI.toString());
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                Log.i("putExtra","success");
+                try{
+                    startActivityForResult(takePictureIntent, PICK_FROM_CAMERA);
+                }catch(Exception e){
+                    Log.i("startActivityForResult","fail");
+                }
+            }
+        }
+    }
 
+
+    private String imageFilePath;
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "TEST_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,      /* prefix */
+                ".jpg",         /* suffix */
+                storageDir          /* directory */
+        );
+        imageFilePath = image.getAbsolutePath();
+        return image;
     }
 
     /**
@@ -233,9 +286,18 @@ public class CameraSearchActivity extends AppCompatActivity implements View.OnCl
         BitmapFactory.Options options = new BitmapFactory.Options();
         Bitmap originalBm = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
         Log.d(TAG, "setImage : " + tempFile.getAbsolutePath());
+
         ImageView imageView = findViewById(R.id.imageView);
         imageView.setImageBitmap(originalBm);
-        uploadPhoto(originalBm);
+
+
+        //resize
+        int resizeWidth = 400;
+        double aspectRatio = (double) originalBm.getHeight() / (double) originalBm.getWidth();
+        int targetHeight = (int) (resizeWidth * aspectRatio);
+        Bitmap result = Bitmap.createScaledBitmap(originalBm,  resizeWidth, targetHeight, false);
+
+        uploadPhoto(result);
 
         /**
          *  tempFile 사용 후 null 처리를 해줘야 합니다.
@@ -290,29 +352,29 @@ public class CameraSearchActivity extends AppCompatActivity implements View.OnCl
             searchMap.put("file",temp);
 
             Call<Post> search = apiService.searchPicAPI(searchMap);
-                search.enqueue(new Callback<Post>() {
-                    @Override
-                    public void onResponse(Call<Post> call, Response<Post> response) {
-                        Log.i("CameraSearchActivity", response.toString());
+            search.enqueue(new Callback<Post>() {
+                @Override
+                public void onResponse(Call<Post> call, Response<Post> response) {
+                    Log.i("CameraSearchActivity", response.toString());
 
-                        try{
-                            //발신 데이터
-                            Intent intent = new Intent(getApplicationContext(), CameraResultActivity.class);
-                            intent.putExtra("searchList",response.body().getSearchList());
-                            intent.putExtra("nick",nick);
-                            startActivity(intent);
-                            finish();
-                        }
-                        catch (Exception e){
-                            e.printStackTrace();
-                        }
+                    try{
+                        //발신 데이터
+                        Intent intent = new Intent(getApplicationContext(), CameraResultActivity.class);
+                        intent.putExtra("searchList",response.body().getSearchList());
+                        intent.putExtra("nick",nick);
+                        startActivity(intent);
+                        finish();
                     }
-
-                    @Override
-                    public void onFailure(Call<Post> call, Throwable t) {
-
+                    catch (Exception e){
+                        e.printStackTrace();
                     }
-                });
+                }
+
+                @Override
+                public void onFailure(Call<Post> call, Throwable t) {
+
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();

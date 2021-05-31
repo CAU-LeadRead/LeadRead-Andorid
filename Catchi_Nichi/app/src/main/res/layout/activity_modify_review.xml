@@ -11,28 +11,17 @@
     tools:context=".ModifyReviewActivity">
 
 
-    <ScrollView
-        android:id="@+id/reviewInfoView"
-        android:layout_width="380dp"
-        android:layout_height="160dp"
-        android:layout_margin="13dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:scrollbarSize="5dp"
-        android:scrollbarThumbVertical="@color/darkgray"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.819">
-
-        <LinearLayout
+    <LinearLayout
             android:id="@+id/reviewInfo"
-            android:layout_width="380dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
             android:layout_weight="10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.523"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.82"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_gravity="center"
@@ -42,7 +31,8 @@
             <EditText
                 android:id="@+id/userWrite"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
                 android:background="@null"
                 android:ems="10"
                 android:gravity="center"
@@ -56,7 +46,7 @@
                 app:layout_constraintVertical_bias="0.785" />
 
         </LinearLayout>
-    </ScrollView>
+
 
     <ImageView
         android:id="@+id/imageView"

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -61,9 +62,12 @@ public class SmellNoteConfineActivity extends AppCompatActivity {
         perfumePic = findViewById(R.id.imageView);
         perfumeInfo = findViewById(R.id.imageText);
         userWrite = findViewById(R.id.userWrite);
+        //textView에 스크롤
+        userWrite.setMovementMethod(new ScrollingMovementMethod());
         userWrite.setText(comment);
         TextView dateTime = findViewById(R.id.editTextDate);
         dateTime.setText(date);
+
 
         Thread mThread = new Thread(){
             public void run(){

@@ -9,18 +9,104 @@
     android:windowSoftInputMode="adjustPan"
     tools:context=".CameraSearchActivity">
 
+
+    <LinearLayout
+        android:id="@+id/top"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="612dp"
+        android:background="@color/darkgray"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="향수 이미지를 업로드하면 향수를 찾아드립니다."
+            android:textColor="@color/ivory"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="130dp"
+        android:layout_height="164dp"
+        android:gravity="center"
+        android:src="@drawable/nullperfume_white"
+        app:layout_constraintBottom_toBottomOf="@id/bottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/top"
+        app:layout_constraintVertical_bias="0.496" />
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="60dp"
+        android:background="@color/darkgray"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <Button
+            android:id="@+id/btnGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="@color/white"
+            android:onClick="onClick"
+            android:text="Gallery"
+            android:textColor="@color/darkgray"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="@color/white"
+            android:onClick="onClick"
+            android:text="Camera"
+            android:textColor="@color/darkgray"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/bar"
         android:layout_width="417dp"
-        android:layout_height="90dp"
+        android:layout_height="85dp"
+        app:layout_constraintVertical_bias="1.0095"
         android:padding="0sp"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:src="@drawable/bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0095" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/home_btn"
@@ -93,104 +179,20 @@
 
     <ImageButton
         android:id="@+id/mypage_btn"
-        android:layout_width="63dp"
-        android:layout_height="76dp"
+        android:layout_width="56dp"
+        android:layout_height="67dp"
         android:layout_marginLeft="5dp"
-        android:onClick="onClick"
         android:background="@color/tumyeongsaeg"
+        android:onClick="onClick"
         android:padding="0sp"
         android:scaleType="fitCenter"
         android:src="@drawable/mypage_icon"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.959"
+        app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-
-    <LinearLayout
-        android:id="@+id/top"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="612dp"
-        android:background="@color/darkgray"
-        android:gravity="bottom"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01">
-
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="14dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="향수 이미지를 업로드하면 향수를 찾아드립니다."
-            android:textColor="@color/ivory"
-            android:textSize="15dp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="130dp"
-        android:layout_height="164dp"
-        android:gravity="center"
-        android:src="@drawable/nullperfume_white"
-        app:layout_constraintBottom_toBottomOf="@id/bottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/top"
-        app:layout_constraintVertical_bias="0.496" />
-
-    <LinearLayout
-        android:id="@+id/bottom"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="76dp"
-        android:background="@color/darkgray"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <Button
-            android:id="@+id/btnGallery"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginRight="30dp"
-            android:layout_marginBottom="40dp"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/darkgray"
-            android:textStyle="bold"
-            android:onClick="onClick"
-            android:text="Gallery" />
-
-        <Button
-            android:id="@+id/btnCamera"
-            android:layout_width="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="30dp"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/darkgray"
-            android:textStyle="bold"
-            android:onClick="onClick"
-            android:text="Camera" />
-
-    </LinearLayout>
+        app:layout_constraintVertical_bias="0.99" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -113,6 +114,8 @@ public class ConfirmReviewActivity extends AppCompatActivity {
         perfumeInfo = findViewById(R.id.imageText);
         userWrite = findViewById(R.id.userWrite);
         userWrite.setText(review_comment);
+        //textView에 스크롤
+        userWrite.setMovementMethod(new ScrollingMovementMethod());
         writerName = findViewById(R.id.writerName);
         moodText = findViewById(R.id.moodText);
         star = findViewById(R.id.starRating);

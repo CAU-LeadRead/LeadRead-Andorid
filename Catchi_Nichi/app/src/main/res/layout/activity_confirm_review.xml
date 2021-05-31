@@ -10,24 +10,7 @@
     tools:context=".ModifyReviewActivity">
 
 
-    <ScrollView
-        android:id="@+id/reviewInfoView"
-        android:layout_width="380dp"
-        android:layout_height="265dp"
-        android:layout_margin="13dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:scrollbarSize="5dp"
-        android:scrollbarThumbVertical="@color/darkgray"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.819">
-
-        <LinearLayout
+    <LinearLayout
             android:id="@+id/reviewInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +19,13 @@
             android:layout_marginRight="15dp"
             android:layout_gravity="center"
             android:background="@color/ivory"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.523"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.8">
 
             <TextView
                 android:id="@+id/userWrite"
@@ -44,6 +33,7 @@
                 android:layout_height="200dp"
                 android:background="@null"
                 android:ems="10"
+                android:layout_margin="15dp"
                 android:gravity="center"
                 android:scrollbars="vertical"
                 android:text="작성자의 리뷰"
@@ -55,7 +45,6 @@
                 app:layout_constraintVertical_bias="0.785" />
 
         </LinearLayout>
-    </ScrollView>
 
     <ImageView
         android:id="@+id/imageView"

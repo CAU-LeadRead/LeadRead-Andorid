@@ -93,7 +93,6 @@ public class NicknameActivity extends AppCompatActivity {
                         public void onResponse(Call<Post> call, Response<Post> response) {
                             if (response.body().getSuccess()){
                                 Log.i("닉네임중복", "ok");
-
                                 nick_Name.enqueue(new Callback<Post>() {
                                     @Override
                                     public void onResponse(Call<Post> call, Response<Post> response) {
@@ -126,6 +125,7 @@ public class NicknameActivity extends AppCompatActivity {
                     });
 
                 }
+
                 else if(join.equals("kakao")){
                     HashMap<String, Object> nickName = new HashMap<>();
                     nickName.put("nick",nick.getText().toString());
@@ -137,7 +137,7 @@ public class NicknameActivity extends AppCompatActivity {
                     HashMap<String,Object> ckNick = new HashMap<>();
                     ckNick.put("nick",nick.getText().toString());
                     Call<Post> check_nick = apiService.checkNickAPI(ckNick);
-                    Call<Post> nick_Name = apiService.kakaosingupAPI(nickName);
+                    Call<Post> kakaosignUp = apiService.kakaosingupAPI(nickName);
 
                     check_nick.enqueue(new Callback<Post>() {
                         @Override
@@ -145,21 +145,33 @@ public class NicknameActivity extends AppCompatActivity {
                             if (response.body().getSuccess()){
                                 Log.i("닉네임중복", "ok");
 
-                                nick_Name.enqueue(new Callback<Post>() {
+                                kakaosignUp.enqueue(new Callback<Post>() {
                                     @Override
                                     public void onResponse(Call<Post> call, Response<Post> response) {
-                                        Log.i("회원가입", "success");
-                                        Log.i("회원가입", response.toString());
-                                        Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다 :)", Toast.LENGTH_SHORT).show();
-                                        Intent usedPerfume = new Intent(getApplicationContext(), UsedPerfumeActivity.class);
-                                        usedPerfume.putExtra("nickname",nick.getText().toString());
-                                        startActivity(usedPerfume);
-                                        finish();
+                                        Log.i("kakaosignUp", response.toString());
+                                        if(response.body().getSuccess()){
+                                            Log.i("회원가입", "success");
+                                            Log.i("회원가입", response.toString());
+                                            Toast.makeText(getApplicationContext(), "회원가입이 완료되었습니다 :)", Toast.LENGTH_SHORT).show();
+                                            Intent usedPerfume = new Intent(getApplicationContext(), UsedPerfumeActivity.class);
+                                            usedPerfume.putExtra("nickname",nick.getText().toString());
+                                            startActivity(usedPerfume);
+                                            finish();
+                                        }
+                                        else{
+                                            Log.i("회원가입", "fail");
+                                            Log.i("회원가입", response.toString());
+                                            Toast.makeText(getApplicationContext(), "회원가입에 오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                                            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
                                     }
 
                                     @Override
                                     public void onFailure(Call<Post> call, Throwable t) {
-
+                                        Log.i("kakaosignUp", "fail");
+                                        t.printStackTrace();
                                     }
                                 });
 

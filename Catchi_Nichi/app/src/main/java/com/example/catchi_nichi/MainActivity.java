@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
     String nickName;
     TextView memberNotice;
-
     ImageButton imgBtn1,imgBtn2,imgBtn3,imgBtn4,imgBtn5;
     ArrayList<HashMap<String, String>> searchList ;
     Bitmap bitmap1,bitmap2,bitmap3,bitmap4,bitmap5;

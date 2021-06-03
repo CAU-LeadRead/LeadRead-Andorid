@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -50,6 +52,8 @@ public class SmellNoteModifyActivity extends AppCompatActivity {
     EditText userWrite;
     Bitmap bitmap;
 
+    String getTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,12 +78,18 @@ public class SmellNoteModifyActivity extends AppCompatActivity {
         comment = intent.getStringExtra("comment");
         id = intent.getIntExtra("id",0);
 
+        //날짜 설정
+        long now = System.currentTimeMillis();
+        Date mDate = new Date(now);
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        getTime = simpleDate.format(mDate);
+
         perfumePic = findViewById(R.id.imageView);
         perfumeInfo = findViewById(R.id.imageText);
         userWrite = findViewById(R.id.userWrite);
         userWrite.setText(comment);
         TextView dateTime = findViewById(R.id.editTextDate);
-        dateTime.setText(date);
+        dateTime.setText(getTime);
 
         Thread mThread = new Thread(){
             public void run(){
@@ -148,7 +158,7 @@ public class SmellNoteModifyActivity extends AppCompatActivity {
                         intent2.putExtra("brand",brand);
                         intent2.putExtra("img",img);
                         intent2.putExtra("name",name);
-                        intent2.putExtra("date",date);
+                        intent2.putExtra("date",getTime);
                         intent2.putExtra("comment",userWrite.getText()+"");
                         intent2.putExtra("id",id);
 

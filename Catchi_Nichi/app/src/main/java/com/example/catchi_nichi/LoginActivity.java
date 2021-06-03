@@ -48,6 +48,12 @@ public class LoginActivity extends AppCompatActivity {
     EditText email;
     EditText pwd;
 
+    //kakao
+    String snsId;
+    String emails;
+    int age;
+    String gender;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +144,6 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onSessionOpened() {
             UserManagement.getInstance().me(new MeV2ResponseCallback() {
-
                 @Override
                 public void onFailure(ErrorResult errorResult) {
                     int result = errorResult.getErrorCode();
@@ -158,39 +163,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onSuccess(MeV2Response result) {
-                    HashMap<String, Object> userInfo = new HashMap<>();
-                    userInfo.put("email", result.getKakaoAccount().getEmail());
-
-                    Call<Post> searchNick = apiService.searchNickAPI(userInfo);
-                    searchNick.enqueue(new Callback<Post>() {
-                        @Override
-                        public void onResponse(Call<Post> call, Response<Post> response) {
-                            if (response.body().getSuccess()) {
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                intent.putExtra("nick", response.body().getNick());
-                                startActivity(intent);
-                                finish();
-                            } else {
-                                if (getInfo(result)) {
-                                    Log.i("response", "success");
-                                    Intent intent = new Intent(getApplicationContext(), NicknameActivity.class);
-                                    intent.putExtra("email", emails);
-                                    intent.putExtra("snsId", snsId);
-                                    intent.putExtra("kakaoage", age);
-                                    intent.putExtra("gender", gender);
-                                    intent.putExtra("join", "kakao");
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Post> call, Throwable t) {
-                            Log.i("nickSearch", "fail");
-                        }
-                    });
-
+                    getInfo(result);
                 }
 
             });
@@ -203,11 +176,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    HashMap<String, Object> userInfo = new HashMap<>();
-    String snsId;
-    String emails;
-    int age;
-    String gender;
     private boolean getInfo(MeV2Response result) {
         PackageInfo packageInfo = null;
 
@@ -221,16 +189,58 @@ public class LoginActivity extends AppCompatActivity {
 
             for (Signature signature : packageInfo.signatures) {
 
-                snsId = String.valueOf(result.getId());
-                emails = String.valueOf(result.getKakaoAccount().getEmail());
-                String[] low = result.getKakaoAccount().getAgeRange().getValue().split("~");
-                age = (Integer.parseInt(low[0]) + Integer.parseInt(low[1])) / 2;
+                try{
+                    String[] low = result.getKakaoAccount().getAgeRange().getValue().split("~");
+                    age = (Integer.parseInt(low[0]) + Integer.parseInt(low[1])) / 2;
+                }catch (Exception e){
+                    age = 1;
+                }
+
+                emails =  String.valueOf(result.getKakaoAccount().getEmail());
+                snsId =  String.valueOf(result.getId());
                 gender = String.valueOf(result.getKakaoAccount().getGender());
 
-                userInfo.put("snsId", snsId);
+
+                HashMap<String, Object> userInfo = new HashMap<>();
                 userInfo.put("email", emails);
-                userInfo.put("age", age);
-                userInfo.put("gender", gender);
+
+                Call<Post> searchNick = apiService.searchNickAPI(userInfo);
+                searchNick.enqueue(new Callback<Post>() {
+                    @Override
+                    public void onResponse(Call<Post> call, Response<Post> response) {
+                        if (response.body().getSuccess()) {
+                            Log.i("kakaologin", "user");
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.putExtra("nick", response.body().getNick());
+                            startActivity(intent);
+                            finish();
+                        }
+                        else{
+                            Log.i("kakaologin", "first access");
+                            Intent intent = new Intent(getApplicationContext(), NicknameActivity.class);
+                            intent.putExtra("email", emails);
+                            intent.putExtra("snsId", snsId);
+                            intent.putExtra("age", age);
+                            intent.putExtra("gender", gender);
+                            intent.putExtra("join", "kakao");
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Post> call, Throwable t) {
+                        Log.i("kakaologin", "fail ");
+                        Intent intent = new Intent(getApplicationContext(), NicknameActivity.class);
+                        intent.putExtra("email", emails);
+                        intent.putExtra("snsId", snsId);
+                        intent.putExtra("age", age);
+                        intent.putExtra("gender", gender);
+                        intent.putExtra("join", "kakao");
+                        startActivity(intent);
+                        finish();
+                    }
+                });
             }
             return true;
 
